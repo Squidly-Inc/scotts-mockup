@@ -1,0 +1,191 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const rooms = [
+  {
+    id: "coral",
+    name: "Coral Room",
+    seated: 30,
+    standing: 40,
+    images: [
+      "https://static.wixstatic.com/media/56773e_e8eb6ec8755447599adca9d512c222c4~mv2.jpg/v1/fill/w_1200,h_800/JK8A0325-1-6-scaled_edited.jpg",
+      "https://static.wixstatic.com/media/56773e_2920d977ee68477c9c56ae32b1903e29~mv2.jpg/v1/fill/w_1200,h_800/seafood%20paella_edited.jpg",
+    ],
+    body: "A semi-private dining room within the restaurant with customizable arrangements. Ideal for rehearsal dinners, corporate luncheons, and milestone celebrations.",
+    perfectFor: ["Rehearsal dinners", "Corporate lunches", "Milestone birthdays"],
+  },
+  {
+    id: "malcolm",
+    name: "Malcolm Room",
+    seated: 50,
+    standing: 70,
+    images: [
+      "https://static.wixstatic.com/media/56773e_b9fbc93c14bd4b5b8ff904dfd944a196~mv2.jpg/v1/fill/w_1200,h_800/458690613_1500747403903587_2287569386930.jpg",
+    ],
+    body: "Dedicated private space with full A/V — projectors, screens, microphones, and soundproofing. Built for presentations and corporate events that need to land.",
+    perfectFor: ["Corporate presentations", "Board dinners", "Product launches"],
+  },
+  {
+    id: "chefs-table",
+    name: "Chef's Table",
+    seated: 10,
+    standing: null,
+    images: [
+      "https://static.wixstatic.com/media/56773e_e8eb6ec8755447599adca9d512c222c4~mv2.jpg/v1/fill/w_1200,h_800/JK8A0325-1-6-scaled_edited.jpg",
+    ],
+    body: "The jewel of the main dining room — a natural walnut table positioned near the bar. Intimate, theatrical, and unforgettable.",
+    perfectFor: ["Intimate celebrations", "VIP dinners", "Tasting menus"],
+  },
+  {
+    id: "patio",
+    name: "Outside Patio",
+    seated: 70,
+    standing: 100,
+    images: [
+      "https://static.wixstatic.com/media/56773e_2920d977ee68477c9c56ae32b1903e29~mv2.jpg/v1/fill/w_1200,h_800/seafood%20paella_edited.jpg",
+    ],
+    body: "Private bar, ambient patio lighting, and open-air San Jose evenings. Built for mixers, networking events, and warm-weather receptions.",
+    perfectFor: ["Cocktail receptions", "Networking mixers", "Summer celebrations"],
+  },
+  {
+    id: "buyout",
+    name: "Full Restaurant Buyout",
+    seated: 200,
+    standing: 250,
+    images: [
+      "https://static.wixstatic.com/media/56773e_b9fbc93c14bd4b5b8ff904dfd944a196~mv2.jpg/v1/fill/w_1200,h_800/458690613_1500747403903587_2287569386930.jpg",
+    ],
+    body: "Take over the entire venue. The full kitchen, the full bar, the full team — yours for the night.",
+    perfectFor: ["Galas & fundraisers", "Holiday parties", "Wedding receptions"],
+  },
+];
+---
+
+<Layout title="Private Dining & Events | Scott's Seafood San Jose">
+  <section class="bg-ink pt-32 pb-12 sm:pb-16">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8 text-center">
+      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">On-Site Private Dining</p>
+      <h1 class="font-display text-4xl sm:text-6xl text-cream mb-5 leading-tight">
+        Five spaces.<br/>One unforgettable venue.
+      </h1>
+      <p class="text-cream/75 max-w-xl mx-auto leading-relaxed">
+        Every space below is on-site at our downtown San Jose restaurant.
+        Looking for a larger off-site event? See <a href="https://www.scottsseafoodsjballroom.com/" class="text-gold underline hover:text-cream">Scott's Ballroom</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Quick room nav -->
+  <section class="bg-ink-soft border-t border-cream/10">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 overflow-x-auto">
+      <div class="flex gap-1 py-2">
+        {rooms.map((r) => (
+          <a
+            href={`#${r.id}`}
+            class="text-cream/70 hover:text-gold text-xs uppercase tracking-widest font-semibold px-4 py-3 whitespace-nowrap transition"
+          >
+            {r.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms -->
+  <section class="bg-cream-soft py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-20 sm:space-y-28">
+      {rooms.map((r, i) => (
+        <article id={r.id} class="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+          <div class={i % 2 === 1 ? "lg:order-2" : ""}>
+            <div class="aspect-[4/3] overflow-hidden shadow-2xl bg-ink/10">
+              <div class="flex h-full snap-x snap-mandatory overflow-x-auto scrollbar-hide">
+                {r.images.map((img) => (
+                  <img
+                    src={img}
+                    alt={r.name}
+                    class="w-full h-full object-cover flex-shrink-0 snap-start"
+                  />
+                ))}
+              </div>
+            </div>
+            {r.images.length > 1 && (
+              <p class="text-xs text-ink/40 mt-3 italic">Swipe for more views →</p>
+            )}
+          </div>
+
+          <div class={i % 2 === 1 ? "lg:order-1" : ""}>
+            <p class="text-gold-deep uppercase tracking-[0.3em] text-xs mb-3">Room {String(i + 1).padStart(2, "0")}</p>
+            <h2 class="font-display text-3xl sm:text-5xl text-ink mb-5 leading-tight">{r.name}</h2>
+
+            <div class="flex gap-6 mb-6 pb-6 border-b border-ink/10">
+              <div>
+                <p class="text-xs uppercase tracking-widest text-teal-deep font-semibold mb-1">Seated</p>
+                <p class="font-display text-2xl text-ink">{r.seated}</p>
+              </div>
+              {r.standing && (
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-teal-deep font-semibold mb-1">Standing</p>
+                  <p class="font-display text-2xl text-ink">{r.standing}</p>
+                </div>
+              )}
+            </div>
+
+            <p class="text-ink/75 leading-relaxed mb-6">{r.body}</p>
+
+            <div class="mb-8">
+              <p class="text-xs uppercase tracking-widest text-teal-deep font-semibold mb-3">Perfect for</p>
+              <ul class="flex flex-wrap gap-2">
+                {r.perfectFor.map((tag) => (
+                  <li class="text-sm bg-sand text-ink/80 px-3 py-1.5">{tag}</li>
+                ))}
+              </ul>
+            </div>
+
+            <a
+              href="#inquire"
+              class="inline-block bg-ink text-cream text-xs font-semibold uppercase tracking-widest px-7 py-3 hover:bg-teal-deep transition"
+            >
+              Inquire About {r.name} →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- INQUIRE -->
+  <section id="inquire" class="bg-teal-deep py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8 text-center">
+      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">Plan Your Event</p>
+      <h2 class="font-display text-3xl sm:text-5xl text-cream mb-6 leading-tight">
+        Let's start the conversation.
+      </h2>
+      <p class="text-cream/80 leading-relaxed mb-10 max-w-xl mx-auto">
+        Reach out directly and our events team will follow up within
+        one business day with availability, pricing, and menu options.
+      </p>
+
+      <div class="bg-ink p-8 sm:p-10 text-left max-w-xl mx-auto">
+        <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">Sales & Events</p>
+        <p class="font-display text-2xl text-cream mb-1">Kremo Bibi</p>
+        <p class="text-cream/70 text-sm mb-6">Sales & Events Manager</p>
+        <div class="space-y-3 text-cream">
+          <a href="mailto:kremo.bibi@scottsseafoodsj.com" class="flex items-center gap-3 hover:text-gold transition">
+            <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            kremo.bibi@scottsseafoodsj.com
+          </a>
+          <a href="tel:+16693474389" class="flex items-center gap-3 hover:text-gold transition">
+            <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.95.68l1.5 4.5a1 1 0 01-.5 1.21l-2.26 1.13a11 11 0 005.52 5.52l1.13-2.26a1 1 0 011.21-.5l4.5 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2h-1C9.72 21 3 14.28 3 6V5z" /></svg>
+            (669) 347-4389
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hide scrollbar on horizontal carousels */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { scrollbar-width: none; }
+</style>

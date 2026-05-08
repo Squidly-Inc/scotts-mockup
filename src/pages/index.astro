@@ -1,0 +1,208 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const url = (p: string) => `${base}${p}`;
+const heroVideo = "https://video.wixstatic.com/video/56773e_bc6abf78abb1447fa292b3a558ead3ce/1080p/mp4/file.mp4";
+const offerings = [
+  {
+    title: "Lunch & Dinner",
+    body: "Fresh seafood, classic steakhouse, seasonal cuisine — six days a week.",
+    img: "https://static.wixstatic.com/media/56773e_2920d977ee68477c9c56ae32b1903e29~mv2.jpg/v1/fill/w_892,h_670,al_c,q_85/seafood%20paella_edited.jpg",
+    href: url("/menu"),
+    cta: "View Menu",
+  },
+  {
+    title: "Shuck & Stir Hour",
+    body: "Oysters, classic cocktails, and elevated bar bites — Mon–Fri, 4–6 PM.",
+    img: "https://static.wixstatic.com/media/56773e_b9fbc93c14bd4b5b8ff904dfd944a196~mv2.jpg/v1/fill/w_892,h_670,al_c,q_85/458690613_1500747403903587_2287569386930.jpg",
+    href: url("/menu") + "#happy-hour",
+    cta: "Happy Hour",
+  },
+  {
+    title: "Private Events",
+    body: "Five distinct spaces from intimate gatherings to a 250-guest buyout.",
+    img: "https://static.wixstatic.com/media/56773e_e8eb6ec8755447599adca9d512c222c4~mv2.jpg/v1/fill/w_892,h_670,al_c,q_85/JK8A0325-1-6-scaled_edited.jpg",
+    href: url("/private-dining"),
+    cta: "Plan an Event",
+  },
+];
+---
+
+<Layout
+  title="Scott's Seafood San Jose | Coastal Cuisine. Elevated Experience."
+  transparentHeader={true}
+>
+  <!-- HERO -->
+  <section class="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
+    <video
+      class="absolute inset-0 w-full h-full object-cover"
+      src={heroVideo}
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="https://static.wixstatic.com/media/56773e_e8eb6ec8755447599adca9d512c222c4~mv2.jpg/v1/fill/w_1920,h_1080,al_c,q_90/JK8A0325-1-6-scaled_edited.jpg"
+    ></video>
+    <div class="absolute inset-0 bg-ink/55"></div>
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 sm:px-8">
+      <p class="fade-up text-gold uppercase tracking-[0.3em] text-xs sm:text-sm mb-4 sm:mb-6">
+        Downtown San Jose · Since 1986
+      </p>
+      <h1 class="fade-up-delay-1 text-cream font-display text-[1.625rem] leading-[1.2] sm:text-6xl sm:leading-[1.05] lg:text-7xl max-w-3xl tracking-tight">
+        Coastal Cuisine.<br />
+        <span class="italic text-gold">Elevated</span> Experience.
+      </h1>
+      <p class="fade-up-delay-2 text-cream/85 mt-5 sm:mt-6 max-w-xl text-sm sm:text-lg leading-relaxed px-2">
+        Fresh, sustainable seafood and chef-driven dishes crafted from the
+        finest seasonal ingredients.
+      </p>
+      <div class="fade-up-delay-2 mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+        <a
+          href={url("/reservations")}
+          class="bg-gold text-ink text-sm font-semibold uppercase tracking-widest px-8 py-4 hover:bg-cream transition text-center"
+        >
+          Reserve a Table
+        </a>
+        <a
+          href={url("/menu")}
+          class="border border-cream/40 text-cream text-sm font-semibold uppercase tracking-widest px-8 py-4 hover:border-gold hover:text-gold transition text-center"
+        >
+          View Menu
+        </a>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-cream/60 text-xs tracking-widest uppercase hidden sm:flex flex-col items-center gap-2">
+      <span>Scroll</span>
+      <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="bg-cream-soft py-20 sm:py-28">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 text-center">
+      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-6">A South Bay Tradition</p>
+      <h2 class="font-display text-3xl sm:text-5xl text-ink mb-8 leading-tight">
+        Forty years of seafood<br/>done right.
+      </h2>
+      <p class="text-ink/75 leading-relaxed text-lg max-w-2xl mx-auto">
+        For over four decades, Scott's Seafood San Jose has been delighting
+        guests with fresh, sustainable seafood and healthy, chef-driven dishes
+        crafted from the finest seasonal ingredients. Thoughtfully crafted
+        cocktails and a curated wine selection pair perfectly with everything
+        on the plate.
+      </p>
+      <div class="flex justify-center gap-8 mt-12">
+        <img
+          src="https://static.wixstatic.com/media/56773e_1796fac4806e4713b1cd55cfc1953955~mv2.png/v1/fill/w_230,h_230,al_c,q_85/DC2-2024.png"
+          alt="OpenTable Diners' Choice 2024"
+          class="h-20 w-20 sm:h-24 sm:w-24"
+        />
+        <img
+          src="https://static.wixstatic.com/media/56773e_ca637dfab34249f484b34ebac247659d~mv2.png/v1/fill/w_292,h_292,al_c,q_85/2023_edited.png"
+          alt="OpenTable Diners' Choice 2023"
+          class="h-20 w-20 sm:h-24 sm:w-24"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERINGS -->
+  <section class="bg-ink py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center mb-14 sm:mb-20">
+        <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">Discover</p>
+        <h2 class="font-display text-3xl sm:text-5xl text-cream">What We Offer</h2>
+      </div>
+      <div class="grid gap-8 md:grid-cols-3">
+        {offerings.map((o) => (
+          <a
+            href={o.href}
+            class="group block bg-ink-soft overflow-hidden hover:bg-teal-deep transition"
+          >
+            <div class="aspect-[4/3] overflow-hidden">
+              <img
+                src={o.img}
+                alt={o.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+            </div>
+            <div class="p-6 sm:p-8">
+              <h3 class="font-display text-2xl text-cream mb-3">{o.title}</h3>
+              <p class="text-cream/70 leading-relaxed mb-5 text-sm">{o.body}</p>
+              <span class="text-gold text-xs uppercase tracking-widest font-semibold border-b border-gold/40 pb-1 group-hover:border-gold">
+                {o.cta} →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVATIONS CTA -->
+  <section class="bg-teal-deep py-20 sm:py-28 text-center">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8">
+      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">Tonight</p>
+      <h2 class="font-display text-3xl sm:text-5xl text-cream mb-6">
+        Your table awaits.
+      </h2>
+      <p class="text-cream/80 text-lg leading-relaxed mb-10">
+        Whether it's a business lunch, a romantic dinner, or a gathering with
+        friends — let us host.
+      </p>
+      <a
+        href={url("/reservations")}
+        class="inline-block bg-gold text-ink text-sm font-semibold uppercase tracking-widest px-10 py-4 hover:bg-cream transition"
+      >
+        Reserve Now
+      </a>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="bg-cream-soft py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div>
+        <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">Find Us</p>
+        <h2 class="font-display text-3xl sm:text-5xl text-ink mb-8 leading-tight">
+          Downtown<br/>San Jose.
+        </h2>
+        <div class="space-y-5 text-ink/80">
+          <div>
+            <h3 class="text-xs uppercase tracking-widest text-teal-deep font-semibold mb-2">Address</h3>
+            <p>200 S. First St, Suite 10<br/>San Jose, CA 95113</p>
+          </div>
+          <div>
+            <h3 class="text-xs uppercase tracking-widest text-teal-deep font-semibold mb-2">Phone</h3>
+            <a href="tel:+14089711700" class="hover:text-gold-deep">(408) 971-1700</a>
+          </div>
+          <div>
+            <h3 class="text-xs uppercase tracking-widest text-teal-deep font-semibold mb-2">Hours</h3>
+            <p class="text-sm leading-relaxed">
+              Lunch · Mon–Fri · 11:30 AM – 2 PM<br/>
+              Shuck & Stir · Mon–Fri · 4 – 6 PM<br/>
+              Dinner · Mon–Thu · 4 – 9 PM<br/>
+              Dinner · Fri–Sun · 4 – 9:30 PM
+            </p>
+          </div>
+        </div>
+        <a href={url("/contact")} class="inline-block mt-8 text-teal-deep text-xs uppercase tracking-widest font-semibold border-b border-teal-deep pb-1 hover:text-gold-deep hover:border-gold">
+          Get Directions →
+        </a>
+      </div>
+      <div class="aspect-[4/3] sm:aspect-[5/4] bg-ink/10 overflow-hidden shadow-xl">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.123!2d-121.8889!3d37.3349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fcca5b3d4e4d5%3A0x0!2zMjAwIFMgRmlyc3QgU3QgIzEwLCBTYW4gSm9zZSwgQ0EgOTUxMTM!5e0!3m2!1sen!2sus!4v1700000000000"
+          class="w-full h-full"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Scott's Seafood Map"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</Layout>

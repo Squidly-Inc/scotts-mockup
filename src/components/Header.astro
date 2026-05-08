@@ -1,0 +1,87 @@
+---
+const { transparent = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const path = Astro.url.pathname.replace(base, "") || "/";
+const isActive = (p: string) => path === p || (p !== "/" && path.startsWith(p));
+const url = (p: string) => `${base}${p}`;
+---
+
+<header
+  class:list={[
+    "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+    transparent ? "bg-transparent" : "bg-ink/95 backdrop-blur",
+  ]}
+  data-header
+>
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+    <a href={url("/")} class="text-cream font-display text-xl sm:text-2xl tracking-wide">
+      Scott's <span class="text-gold">Seafood</span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-8 text-sm tracking-wider uppercase text-cream/90">
+      <a href={url("/menu")} class:list={["hover:text-gold transition", isActive("/menu") && "text-gold"]}>Menu</a>
+      <a href={url("/reservations")} class:list={["hover:text-gold transition", isActive("/reservations") && "text-gold"]}>Reservations</a>
+      <a href={url("/private-dining")} class:list={["hover:text-gold transition", isActive("/private-dining") && "text-gold"]}>Private Dining</a>
+      <a href={url("/gift-cards")} class:list={["hover:text-gold transition", isActive("/gift-cards") && "text-gold"]}>Gift Cards</a>
+      <a href={url("/contact")} class:list={["hover:text-gold transition", isActive("/contact") && "text-gold"]}>Contact</a>
+    </nav>
+
+    <a
+      href={url("/reservations")}
+      class="hidden lg:inline-block bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-5 py-2.5 hover:bg-cream transition"
+    >
+      Reserve
+    </a>
+
+    <button
+      data-mobile-toggle
+      class="lg:hidden text-cream p-2"
+      aria-label="Open menu"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <div
+    data-mobile-menu
+    class="hidden lg:hidden bg-ink text-cream border-t border-cream/10"
+  >
+    <nav class="flex flex-col px-5 py-6 gap-1 text-sm uppercase tracking-wider">
+      <a href={url("/menu")} class="py-3 border-b border-cream/10 hover:text-gold">Menu</a>
+      <a href={url("/reservations")} class="py-3 border-b border-cream/10 hover:text-gold">Reservations</a>
+      <a href={url("/private-dining")} class="py-3 border-b border-cream/10 hover:text-gold">Private Dining</a>
+      <a href={url("/gift-cards")} class="py-3 border-b border-cream/10 hover:text-gold">Gift Cards</a>
+      <a href={url("/contact")} class="py-3 hover:text-gold">Contact</a>
+      <a
+        href={url("/reservations")}
+        class="mt-4 bg-gold text-ink text-center font-semibold py-3 hover:bg-cream transition"
+      >
+        Reserve a Table
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector("[data-mobile-toggle]");
+  const menu = document.querySelector("[data-mobile-menu]");
+  toggle?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+  });
+
+  const header = document.querySelector("[data-header]") as HTMLElement | null;
+  if (header && header.classList.contains("bg-transparent")) {
+    const onScroll = () => {
+      if (window.scrollY > 60) {
+        header.classList.remove("bg-transparent");
+        header.classList.add("bg-ink/95", "backdrop-blur");
+      } else {
+        header.classList.add("bg-transparent");
+        header.classList.remove("bg-ink/95", "backdrop-blur");
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+</script>

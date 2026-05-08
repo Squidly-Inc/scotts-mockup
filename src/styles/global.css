@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  /* Scott's brand palette — derived from current site, modernized */
+  --color-ink: #1a1c1d;
+  --color-ink-soft: #2e3133;
+  --color-cream: #f7f1e3;
+  --color-cream-soft: #faf6ec;
+  --color-sand: #e8dfc8;
+  --color-teal: #2c5f6f;
+  --color-teal-deep: #1f4651;
+  --color-teal-pale: #9fc4ce;
+  --color-gold: #c9a14a;
+  --color-gold-deep: #a07f33;
+  --color-coral: #c46a55;
+
+  /* Typography */
+  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", "Helvetica Neue", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-cream-soft);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.font-display { font-family: var(--font-display); }
+
+/* Subtle entrance for hero text — kept short so headless screenshots & users on slow connections still see content */
+@keyframes fadeUp {
+  from { opacity: 0.3; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.5s ease-out both; }
+.fade-up-delay-1 { animation: fadeUp 0.5s ease-out 0.1s both; }
+.fade-up-delay-2 { animation: fadeUp 0.5s ease-out 0.2s both; }

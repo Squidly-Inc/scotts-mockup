@@ -1,0 +1,152 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const url = (p: string) => `${base}${p}`;
+
+const sections = [
+  {
+    id: "appetizers",
+    title: "Appetizers",
+    items: [
+      { name: "Fried Calamari", price: "21" },
+      { name: "Shrimp Cocktail Veracruz", price: "25" },
+      { name: "Oysters on the Half Shell", price: "22 / 42" },
+      { name: "Jumbo Wrapped Prawns", price: "26" },
+      { name: "Tempura Fried Cauliflower", price: "19" },
+      { name: "Oysters Rockefeller", price: "24 / 46" },
+      { name: "Crab Cakes", price: "24" },
+      { name: "Yellowtail Hamachi", price: "28" },
+    ],
+  },
+  {
+    id: "soups-salads",
+    title: "Soups & Salads",
+    items: [
+      { name: "Scott's Famous Clam Chowder", price: "10" },
+      { name: "Lobster Bisque", price: "12" },
+      { name: "Classic Caesar", price: "6 / 10" },
+      { name: "Pear & Strawberry Salad", price: "15" },
+      { name: "Crab Louie", price: "25" },
+      { name: "Ahi Tuna Salad", price: "29" },
+    ],
+  },
+  {
+    id: "seafood",
+    title: "Seafood Favorites",
+    items: [
+      { name: "Grilled Salmon", price: "32" },
+      { name: "Petrale Sole", price: "34" },
+      { name: "Seafood Risotto", price: "32" },
+      { name: "Scott's Cioppino", price: "38" },
+      { name: "Crispy Fish Tacos", price: "23" },
+      { name: "Fish & Chips", price: "24" },
+    ],
+  },
+  {
+    id: "entrees",
+    title: "Entrées",
+    items: [
+      { name: "Lobster Roll", price: "34" },
+      { name: "Crab Cake Sandwich", price: "26" },
+      { name: "Chicken Marsala", price: "27" },
+      { name: "Steak Frites", price: "36" },
+      { name: "Blackened Fish Sandwich", price: "27" },
+      { name: "Petite Filet", price: "42" },
+    ],
+  },
+  {
+    id: "pasta",
+    title: "Pasta & Classics",
+    items: [
+      { name: "Linguini & Clams", price: "29" },
+      { name: "Mushroom Ravioli", price: "27" },
+      { name: "Pesto Rigatoni with Salmon", price: "32" },
+      { name: "Shrimp Scampi Linguini", price: "30" },
+    ],
+  },
+  {
+    id: "sides",
+    title: "Sides",
+    items: [
+      { name: "Sautéed Broccolini", price: "12" },
+      { name: "Grilled Asparagus", price: "13" },
+      { name: "Au Gratin Potatoes", price: "12" },
+      { name: "Garlic Mashed Potatoes", price: "10" },
+      { name: "Truffle Fries", price: "13" },
+      { name: "Sautéed Vegetables", price: "11" },
+    ],
+  },
+];
+
+const menuTabs = [
+  { id: "lunch", label: "Lunch" },
+  { id: "dinner", label: "Dinner" },
+  { id: "wine", label: "Wine" },
+  { id: "happy-hour", label: "Shuck & Stir Hour" },
+];
+---
+
+<Layout title="Menus | Scott's Seafood San Jose">
+  <section class="bg-ink pt-32 pb-12 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 text-center">
+      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">The Menu</p>
+      <h1 class="font-display text-4xl sm:text-6xl text-cream mb-4">Coastal cuisine, crafted daily.</h1>
+      <p class="text-cream/70 max-w-xl mx-auto leading-relaxed">
+        Discover the best of coastal cuisine and timeless steakhouse classics.
+      </p>
+    </div>
+  </section>
+
+  <!-- TABS -->
+  <section class="bg-ink sticky top-[68px] z-40 border-t border-cream/10">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 overflow-x-auto">
+      <div class="flex gap-1 sm:gap-2 py-2">
+        {menuTabs.map((t) => (
+          <a
+            href={`#${t.id}`}
+            class="text-cream/70 hover:text-gold text-xs sm:text-sm uppercase tracking-widest font-semibold px-4 sm:px-6 py-3 whitespace-nowrap transition"
+          >
+            {t.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream-soft py-16 sm:py-24">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 space-y-16 sm:space-y-20">
+      {sections.map((s) => (
+        <div id={s.id}>
+          <h2 class="font-display text-2xl sm:text-4xl text-ink mb-8 sm:mb-10 pb-3 border-b border-gold/40">
+            {s.title}
+          </h2>
+          <ul class="space-y-5 sm:space-y-6">
+            {s.items.map((item) => (
+              <li class="flex justify-between items-baseline gap-4">
+                <span class="text-ink font-medium text-base sm:text-lg">{item.name}</span>
+                <span class="flex-1 border-b border-dotted border-ink/20 mb-1.5"></span>
+                <span class="text-ink/70 text-base sm:text-lg tabular-nums">${item.price}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      <div id="happy-hour" class="bg-teal-deep -mx-5 sm:mx-0 sm:rounded-none px-6 sm:px-12 py-12 sm:py-14 text-cream">
+        <p class="text-gold uppercase tracking-[0.3em] text-xs mb-3">Mon–Fri · 4 – 6 PM</p>
+        <h2 class="font-display text-3xl sm:text-4xl mb-4">Shuck & Stir Hour</h2>
+        <p class="text-cream/85 leading-relaxed mb-6 max-w-xl">
+          Oysters, classic cocktails, and elevated bar bites — done right.
+        </p>
+        <a href={url("/reservations")} class="inline-block bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-7 py-3 hover:bg-cream transition">
+          Reserve Bar Seating
+        </a>
+      </div>
+
+      <p class="text-center text-ink/50 text-sm italic pt-4">
+        Please inform your food server of any food allergies. Menu and pricing subject to change.
+      </p>
+    </div>
+  </section>
+</Layout>

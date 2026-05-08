@@ -1,0 +1,78 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const url = (p: string) => `${base}${p}`;
+---
+
+<Layout title="Reservations | Scott's Seafood San Jose">
+  <section class="bg-ink pt-32 pb-12 sm:pb-16">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8 text-center">
+      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">Reservations</p>
+      <h1 class="font-display text-4xl sm:text-6xl text-cream mb-5 leading-tight">
+        Your table awaits.
+      </h1>
+      <p class="text-cream/75 max-w-xl mx-auto leading-relaxed">
+        Whether you're planning a business lunch, a romantic dinner, or a
+        gathering with friends — book a table in seconds.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-cream-soft py-16 sm:py-20">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8">
+      <div class="bg-white shadow-lg p-6 sm:p-10 border-t-4 border-gold">
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+          <div>
+            <h2 class="font-display text-2xl sm:text-3xl text-ink mb-1">Book a Table</h2>
+            <p class="text-ink/60 text-sm">Powered by OpenTable</p>
+          </div>
+          <img
+            src="https://static.wixstatic.com/media/56773e_1796fac4806e4713b1cd55cfc1953955~mv2.png/v1/fill/w_230,h_230,al_c,q_85/DC2-2024.png"
+            alt="OpenTable Diners' Choice 2024"
+            class="h-16 w-16"
+          />
+        </div>
+
+        <!-- OpenTable widget -->
+        <div class="bg-cream-soft p-5 sm:p-8 text-center">
+          <iframe
+            src="https://www.opentable.com/widget/reservation/loader?rid=99033&type=standard&theme=standard&iframe=true&domain=com&lang=en-US&newtab=true"
+            class="w-full"
+            style="height: 360px; border: 0;"
+            title="OpenTable Reservation Widget"
+          ></iframe>
+          <noscript>
+            <a href="https://www.opentable.com/r/scotts-seafood-san-jose" class="text-teal-deep underline">
+              Reserve directly on OpenTable
+            </a>
+          </noscript>
+        </div>
+
+        <p class="text-ink/60 text-sm text-center mt-6">
+          Parties of 8 or more — please call <a href="tel:+14089711700" class="text-teal-deep hover:text-gold-deep font-semibold">(408) 971-1700</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Private events upsell -->
+  <section class="bg-ink py-16 sm:py-20 text-center">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8">
+      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">Larger Group?</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-cream mb-5">
+        Plan a private event.
+      </h2>
+      <p class="text-cream/75 leading-relaxed mb-8 max-w-xl mx-auto">
+        From an intimate Chef's Table dinner for 10 to a 250-guest full
+        restaurant buyout — five distinct spaces for every occasion.
+      </p>
+      <a
+        href={url("/private-dining")}
+        class="inline-block border border-gold text-gold text-xs font-semibold uppercase tracking-widest px-8 py-3 hover:bg-gold hover:text-ink transition"
+      >
+        Explore Private Dining
+      </a>
+    </div>
+  </section>
+</Layout>
