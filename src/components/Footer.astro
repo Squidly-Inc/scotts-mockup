@@ -42,11 +42,18 @@ const url = (p: string) => `${base}${p}`;
   </div>
 
   <div class="border-t border-cream/10">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-cream/50">
-      <p>© 2026 Scott's Seafood San Jose. All rights reserved.</p>
-      <div class="flex gap-6">
-        <a href="https://www.scottsseafoodsjballroom.com/" class="hover:text-gold">Ballroom</a>
-        <a href="https://www.scottssocialclub.com/" class="hover:text-gold">Social Club</a>
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-8 grid sm:grid-cols-2 gap-4 text-xs text-cream/50">
+      <div>
+        <p class="text-gold uppercase tracking-widest text-xs mb-3">Part of the Scott's family</p>
+        <div class="flex flex-wrap gap-x-5 gap-y-2 text-cream/70">
+          <a href="https://squidly-inc.github.io/scotts-hospitality/" class="hover:text-gold">Hospitality</a>
+          <a href="https://squidly-inc.github.io/scotts-ballroom/" class="hover:text-gold">Ballroom</a>
+          <a href="https://squidly-inc.github.io/scotts-provisions/" class="hover:text-gold">Provisions</a>
+          <a href="https://squidly-inc.github.io/scotts-social-club/" class="hover:text-gold">Social Club</a>
+        </div>
+      </div>
+      <div class="sm:text-right flex flex-col gap-2 sm:items-end">
+        <p>© 2026 Scott's Seafood San Jose. All rights reserved.</p>
         <a href={url("/contact")} class="hover:text-gold">Accessibility</a>
       </div>
     </div>
