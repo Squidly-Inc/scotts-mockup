@@ -88,4 +88,34 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
   </section>
+
+  <section class="bg-ink py-16 sm:py-20">
+    <div class="max-w-2xl mx-auto px-5 sm:px-8 text-center">
+      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-3">Stay in the Loop</p>
+      <h2 class="font-display text-2xl sm:text-3xl text-cream mb-3 leading-tight">
+        Join our mailing list.
+      </h2>
+      <p class="text-cream/70 leading-relaxed mb-7 text-sm">
+        Seasonal menus, holiday brunches, Shuck &amp; Stir specials, and the
+        occasional invite to something special — straight to your inbox.
+      </p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <label class="sr-only" for="newsletter-email">Email address</label>
+        <input
+          id="newsletter-email"
+          type="email"
+          required
+          placeholder="you@example.com"
+          class="flex-1 bg-cream-soft text-ink px-4 py-3 placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-gold"
+        />
+        <button
+          type="submit"
+          class="bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-6 py-3 hover:bg-cream transition"
+        >
+          Subscribe
+        </button>
+      </form>
+      <p class="text-cream/40 text-xs mt-4">We respect your inbox. No spam, unsubscribe anytime.</p>
+    </div>
+  </section>
 </Layout>
