@@ -4,25 +4,26 @@ import Layout from "../layouts/Layout.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const url = (p: string) => `${base}${p}`;
 const heroVideo = "https://video.wixstatic.com/video/56773e_bc6abf78abb1447fa292b3a558ead3ce/1080p/mp4/file.mp4";
+const heroPoster = `${base}/photos/food-seafood-boil.jpg`;
 const offerings = [
   {
     title: "Lunch & Dinner",
     body: "Fresh seafood, classic steakhouse, seasonal cuisine — six days a week.",
-    img: "https://static.wixstatic.com/media/56773e_2920d977ee68477c9c56ae32b1903e29~mv2.jpg/v1/fill/w_892,h_670,al_c,q_85/seafood%20paella_edited.jpg",
+    img: `${base}/photos/food-lobster-tail.jpg`,
     href: url("/menu"),
     cta: "View Menu",
   },
   {
     title: "Shuck & Stir Hour",
     body: "Oysters, classic cocktails, and elevated bar bites — Mon–Fri, 4–6 PM.",
-    img: "https://static.wixstatic.com/media/56773e_b9fbc93c14bd4b5b8ff904dfd944a196~mv2.jpg/v1/fill/w_892,h_670,al_c,q_85/458690613_1500747403903587_2287569386930.jpg",
+    img: `${base}/photos/drink-server-tray.jpg`,
     href: url("/menu") + "#happy-hour",
     cta: "Happy Hour",
   },
   {
     title: "Private Events",
     body: "Five distinct spaces from intimate gatherings to a 250-guest buyout.",
-    img: "https://static.wixstatic.com/media/56773e_e8eb6ec8755447599adca9d512c222c4~mv2.jpg/v1/fill/w_892,h_670,al_c,q_85/JK8A0325-1-6-scaled_edited.jpg",
+    img: `${base}/photos/coral-room-1.jpg`,
     href: url("/private-dining"),
     cta: "Plan an Event",
   },
@@ -42,7 +43,7 @@ const offerings = [
       muted
       loop
       playsinline
-      poster="https://static.wixstatic.com/media/56773e_e8eb6ec8755447599adca9d512c222c4~mv2.jpg/v1/fill/w_1920,h_1080,al_c,q_90/JK8A0325-1-6-scaled_edited.jpg"
+      poster={heroPoster}
     ></video>
     <div class="absolute inset-0 bg-ink/55"></div>
     <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 sm:px-8">

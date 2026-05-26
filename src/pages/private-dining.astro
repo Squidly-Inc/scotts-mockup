@@ -1,15 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const photo = (name: string) => `${base}/photos/${name}`;
+
 const rooms = [
   {
     id: "chefs-table",
     name: "Chef's Table",
     seated: 10,
     standing: null,
-    images: [
-      "https://static.wixstatic.com/media/56773e_e8eb6ec8755447599adca9d512c222c4~mv2.jpg/v1/fill/w_1200,h_800/JK8A0325-1-6-scaled_edited.jpg",
-    ],
+    images: [photo("chefs-table-1.jpg")],
     body: "The jewel of the main dining room — a natural walnut table positioned near the bar. Intimate, theatrical, and unforgettable.",
     perfectFor: ["Intimate celebrations", "VIP dinners", "Tasting menus"],
   },
@@ -19,8 +20,9 @@ const rooms = [
     seated: 30,
     standing: 40,
     images: [
-      "https://static.wixstatic.com/media/56773e_e8eb6ec8755447599adca9d512c222c4~mv2.jpg/v1/fill/w_1200,h_800/JK8A0325-1-6-scaled_edited.jpg",
-      "https://static.wixstatic.com/media/56773e_2920d977ee68477c9c56ae32b1903e29~mv2.jpg/v1/fill/w_1200,h_800/seafood%20paella_edited.jpg",
+      photo("coral-room-1.jpg"),
+      photo("coral-room-2.jpg"),
+      photo("coral-room-3.jpg"),
     ],
     body: "A semi-private dining room within the restaurant with customizable arrangements. Ideal for rehearsal dinners, corporate luncheons, and milestone celebrations.",
     perfectFor: ["Rehearsal dinners", "Corporate lunches", "Milestone birthdays"],
@@ -31,7 +33,8 @@ const rooms = [
     seated: 50,
     standing: 70,
     images: [
-      "https://static.wixstatic.com/media/56773e_b9fbc93c14bd4b5b8ff904dfd944a196~mv2.jpg/v1/fill/w_1200,h_800/458690613_1500747403903587_2287569386930.jpg",
+      photo("malcolm-room-1.jpg"),
+      photo("malcolm-room-2.jpg"),
     ],
     body: "Dedicated private space with full A/V — projectors, screens, microphones, and soundproofing. Built for presentations and corporate events that need to land.",
     perfectFor: ["Corporate presentations", "Board dinners", "Product launches"],
@@ -42,7 +45,11 @@ const rooms = [
     seated: 70,
     standing: 100,
     images: [
-      "https://static.wixstatic.com/media/56773e_2920d977ee68477c9c56ae32b1903e29~mv2.jpg/v1/fill/w_1200,h_800/seafood%20paella_edited.jpg",
+      photo("patio-1.jpg"),
+      photo("patio-3.jpg"),
+      photo("patio-4.jpg"),
+      photo("patio-5.jpg"),
+      photo("patio-2.jpg"),
     ],
     body: "Private, ambient patio perfect for both days and nights. Built for mixers, networking events, and seasonal receptions with a private bar and atmospheric lighting.",
     perfectFor: ["Cocktail receptions", "Networking mixers", "Seasonal celebrations"],
@@ -53,7 +60,9 @@ const rooms = [
     seated: 200,
     standing: 250,
     images: [
-      "https://static.wixstatic.com/media/56773e_b9fbc93c14bd4b5b8ff904dfd944a196~mv2.jpg/v1/fill/w_1200,h_800/458690613_1500747403903587_2287569386930.jpg",
+      photo("coral-room-2.jpg"),
+      photo("malcolm-room-2.jpg"),
+      photo("patio-1.jpg"),
     ],
     body: "Take over the entire venue. The full kitchen, the full bar, the full team — yours for the night.",
     perfectFor: ["Galas & fundraisers", "Holiday parties", "Wedding receptions"],

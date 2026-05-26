@@ -79,11 +79,24 @@ const sections = [
   },
 ];
 
+const desserts = [
+  { name: "Molten Chocolate Cake", desc: "Warm chocolate cake, vanilla ice cream, salted caramel, fresh raspberry", img: `${base}/photos/dessert-lava-cake.jpg`, price: "13" },
+  { name: "Key Lime Cheesecake", desc: "Graham crust, whipped cream, raspberry coulis", img: `${base}/photos/dessert-key-lime.jpg`, price: "12" },
+];
+
+const cocktails = [
+  { name: "Cucumber Margarita", desc: "Reposado, fresh cucumber, lime, salt rim", img: `${base}/photos/drink-cucumber-margarita.jpg`, price: "14" },
+  { name: "House Sangria", desc: "Red wine, brandy, seasonal citrus", img: `${base}/photos/drink-sangria.jpg`, price: "13" },
+  { name: "Bartender's Choice", desc: "Tell us what you like — we'll build it", img: `${base}/photos/drink-server-tray.jpg`, price: "MP" },
+];
+
 const menuTabs = [
   { id: "lunch", label: "Lunch" },
   { id: "dinner", label: "Dinner" },
+  { id: "happy-hour", label: "Shuck & Stir" },
+  { id: "cocktails", label: "Cocktails" },
+  { id: "desserts", label: "Desserts" },
   { id: "wine", label: "Wine" },
-  { id: "happy-hour", label: "Shuck & Stir Hour" },
 ];
 ---
 
@@ -166,6 +179,48 @@ const menuTabs = [
         <a href={url("/reservations")} class="inline-block bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-7 py-3 hover:bg-cream transition">
           Reserve Bar Seating
         </a>
+      </div>
+
+      <div id="cocktails">
+        <h2 class="font-display text-2xl sm:text-4xl text-ink mb-2 pb-3 border-b border-gold/40">Cocktails</h2>
+        <p class="text-ink/55 text-sm italic mb-8 mt-3">Sample list — full menu coming soon.</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {cocktails.map((c) => (
+            <div class="bg-white shadow-sm overflow-hidden">
+              <div class="aspect-[4/5] overflow-hidden bg-ink/10">
+                <img src={c.img} alt={c.name} class="w-full h-full object-cover" />
+              </div>
+              <div class="p-5">
+                <div class="flex justify-between items-baseline gap-3 mb-2">
+                  <h3 class="font-display text-lg text-ink">{c.name}</h3>
+                  <span class="text-ink/70 text-sm tabular-nums">${c.price}</span>
+                </div>
+                <p class="text-ink/60 text-sm leading-snug">{c.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div id="desserts">
+        <h2 class="font-display text-2xl sm:text-4xl text-ink mb-2 pb-3 border-b border-gold/40">Desserts</h2>
+        <p class="text-ink/55 text-sm italic mb-8 mt-3">Sample list — full menu coming soon.</p>
+        <div class="grid sm:grid-cols-2 gap-6 sm:gap-8">
+          {desserts.map((d) => (
+            <div class="bg-white shadow-sm overflow-hidden">
+              <div class="aspect-[4/3] overflow-hidden bg-ink/10">
+                <img src={d.img} alt={d.name} class="w-full h-full object-cover" />
+              </div>
+              <div class="p-5">
+                <div class="flex justify-between items-baseline gap-3 mb-2">
+                  <h3 class="font-display text-lg text-ink">{d.name}</h3>
+                  <span class="text-ink/70 text-sm tabular-nums">${d.price}</span>
+                </div>
+                <p class="text-ink/60 text-sm leading-snug">{d.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <p class="text-center text-ink/50 text-sm italic pt-4">
