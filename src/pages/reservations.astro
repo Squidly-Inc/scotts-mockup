@@ -34,14 +34,9 @@ const url = (p: string) => `${base}${p}`;
           />
         </div>
 
-        <!-- OpenTable widget (rid 2251 — Sammy 2026-06-09) -->
-        <div class="bg-cream-soft p-5 sm:p-8 text-center">
-          <iframe
-            src="https://www.opentable.com/widget/reservation/loader?rid=2251&type=standard&theme=standard&color=1&dark=false&iframe=true&domain=com&lang=en-US&newtab=false&ot_source=Restaurant%20website&cfe=true"
-            class="w-full"
-            style="height: 360px; border: 0;"
-            title="OpenTable Reservation Widget"
-          ></iframe>
+        <!-- OpenTable widget (rid 2251 — Sammy's exact script form, 2026-06-10) -->
+        <div class="bg-cream-soft p-5 sm:p-8 text-center min-h-[260px]">
+          <script is:inline type="text/javascript" src="//www.opentable.com/widget/reservation/loader?rid=2251&type=standard&theme=standard&color=1&dark=false&iframe=true&domain=com&lang=en-US&newtab=false&ot_source=Restaurant%20website&cfe=true"></script>
           <noscript>
             <a href="https://www.opentable.com/r/scotts-seafood-san-jose" class="text-teal-deep underline">
               Reserve directly on OpenTable
