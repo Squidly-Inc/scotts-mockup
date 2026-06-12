@@ -34,23 +34,32 @@ const url = (p: string) => `${base}${p}`;
           />
         </div>
 
-        <!-- OpenTable widget (rid 2251 — direct canvas iframe, 2026-06-12)
-             The document.write-based loader script silently fails in modern browsers.
-             The /widget/reservation/canvas endpoint renders the same booking flow as a
-             plain iframe with no JS handshake required. -->
-        <div class="bg-cream-soft p-5 sm:p-8">
+        <!-- Direct OpenTable CTA (primary) + embedded widget (best-effort)
+             The widget loader can fail silently in modern browsers (document.write
+             blocking, ad-blockers, etc.); the big CTA below always works. -->
+        <div class="bg-cream-soft p-6 sm:p-10 text-center">
+          <p class="text-ink/75 leading-relaxed mb-6 max-w-md mx-auto">
+            Book a table for any party size — instant confirmation through OpenTable.
+          </p>
+          <a
+            href="https://www.opentable.com/r/scotts-seafood-san-jose"
+            target="_blank"
+            rel="noopener"
+            class="inline-block bg-teal-deep text-cream text-sm font-semibold uppercase tracking-widest px-10 py-4 hover:bg-ink transition"
+          >
+            Reserve on OpenTable →
+          </a>
+
+          <!-- Embedded widget tries to render below; if it fails, the button above is the path -->
           <iframe
             src="https://www.opentable.com/widget/reservation/canvas?rid=2251&type=standard&theme=standard&color=1&dark=false&iframe=true&domain=com&lang=en-US&newtab=false&ot_source=Restaurant%20website&cfe=true"
-            class="w-full block"
+            class="w-full block mt-10"
             style="height: 290px; border: 0;"
             title="OpenTable Reservation Widget"
             allowtransparency="true"
             scrolling="no"
+            loading="lazy"
           ></iframe>
-          <p class="text-center text-ink/60 text-sm mt-4">
-            Widget not loading?
-            <a href="https://www.opentable.com/r/scotts-seafood-san-jose" target="_blank" rel="noopener" class="text-teal-deep underline hover:text-gold-deep">Reserve directly on OpenTable →</a>
-          </p>
         </div>
 
         <p class="text-ink/60 text-sm text-center mt-6">
