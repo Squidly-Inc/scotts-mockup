@@ -50,10 +50,20 @@ const url = (p: string) => `${base}${p}`;
         <p class="text-gold uppercase tracking-widest text-xs mb-2">Newsletter</p>
         <p class="text-cream/80 text-sm leading-snug">One list across the Scott's San Jose family — restaurant, ballroom, catering, and the Club.</p>
       </div>
-      <form data-newsletter-pending onsubmit="event.preventDefault(); this.reset(); var btn=this.querySelector('button'); if(btn) btn.textContent='Subscribed ✓'; this.classList.add('opacity-60','pointer-events-none');" class="flex gap-2">
+      <form
+        action="https://scottsseafoodsj.us8.list-manage.com/subscribe/post?u=fab8fe5ff01093f4e48a5bd14&amp;id=e688913a46&amp;f_id=00e736e3f0"
+        method="post"
+        target="_blank"
+        novalidate
+        class="flex gap-2"
+      >
         <label class="sr-only" for="footer-newsletter">Email address</label>
-        <input id="footer-newsletter" name="email" type="email" required placeholder="you@example.com" class="flex-1 bg-cream-soft text-ink px-4 py-2.5 text-sm placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-gold" />
-        <button type="submit" class="bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-5 hover:bg-cream transition">Subscribe</button>
+        <input id="footer-newsletter" name="EMAIL" type="email" required placeholder="you@example.com" class="flex-1 bg-cream-soft text-ink px-4 py-2.5 text-sm placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-gold" />
+        <!-- Mailchimp honeypot — leave blank -->
+        <div aria-hidden="true" style="position: absolute; left: -5000px;">
+          <input type="text" name="b_fab8fe5ff01093f4e48a5bd14_e688913a46" tabindex="-1" value="" />
+        </div>
+        <button type="submit" name="subscribe" class="bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-5 hover:bg-cream transition">Subscribe</button>
       </form>
     </div>
   </div>
