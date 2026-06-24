@@ -106,7 +106,7 @@ const cocktails = [
 
 const cocktailsFeatured = [
   { name: "Scott's Signature Sangria", img: `${base}/photos/drink-signature-sangria.jpg`, price: "18" },
-  { name: "Wine by the Glass", img: `${base}/photos/drink-wine-by-glass.jpg`, price: "—" },
+  { name: "Wine by the Glass", img: `${base}/photos/drink-wine-by-glass.jpg`, price: null },
 ];
 
 const menuTabs = [
@@ -214,7 +214,7 @@ const menuTabs = [
               <div class="p-5">
                 <div class="flex justify-between items-baseline gap-3">
                   <h3 class="font-display text-lg text-ink">{c.name}</h3>
-                  <span class="text-ink/70 text-sm tabular-nums">${c.price}</span>
+                  {c.price && <span class="text-ink/70 text-sm tabular-nums">${c.price}</span>}
                 </div>
               </div>
             </div>

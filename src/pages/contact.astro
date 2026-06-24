@@ -58,7 +58,7 @@ import Layout from "../layouts/Layout.astro";
         <div>
           <h2 class="text-xs uppercase tracking-widest text-teal-deep font-semibold mb-3">Private Events</h2>
           <p class="text-ink mb-2">
-            Kremo Bibi · Sales & Events
+            Sales &amp; Events Team
           </p>
           <a href="mailto:info@scottsseafoodsj.com" class="block text-ink/80 hover:text-gold-deep">info@scottsseafoodsj.com</a>
           <a href="tel:+16693474389" class="block text-ink/80 hover:text-gold-deep">(669) 347-4389</a>
@@ -79,7 +79,7 @@ import Layout from "../layouts/Layout.astro";
 
       <div class="lg:col-span-3 aspect-[4/3] lg:aspect-auto lg:min-h-[600px] bg-ink/10 shadow-xl">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.123!2d-121.8889!3d37.3349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fcca5b3d4e4d5%3A0x0!2zMjAwIFMgRmlyc3QgU3QgIzEwLCBTYW4gSm9zZSwgQ0EgOTUxMTM!5e0!3m2!1sen!2sus!4v1700000000000"
+          src="https://maps.google.com/maps?q=200+S+1st+St,+San+Jose,+CA+95113&output=embed"
           class="w-full h-full"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
@@ -99,17 +99,28 @@ import Layout from "../layouts/Layout.astro";
         Seasonal menus, holiday brunches, Shuck &amp; Stir specials, and the
         occasional invite to something special — straight to your inbox.
       </p>
-      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <form
+        action="https://scottsseafoodsj.us8.list-manage.com/subscribe/post?u=fab8fe5ff01093f4e48a5bd14&amp;id=e688913a46&amp;f_id=00e736e3f0"
+        method="post"
+        target="_blank"
+        novalidate
+        class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+      >
         <label class="sr-only" for="newsletter-email">Email address</label>
         <input
           id="newsletter-email"
+          name="EMAIL"
           type="email"
           required
           placeholder="you@example.com"
           class="flex-1 bg-cream-soft text-ink px-4 py-3 placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-gold"
         />
+        <div aria-hidden="true" style="position: absolute; left: -5000px;">
+          <input type="text" name="b_fab8fe5ff01093f4e48a5bd14_e688913a46" tabindex="-1" value="" />
+        </div>
         <button
           type="submit"
+          name="subscribe"
           class="bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-6 py-3 hover:bg-cream transition"
         >
           Subscribe
