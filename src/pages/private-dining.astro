@@ -107,7 +107,7 @@ const rooms = [
         <article id={r.id} class="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
           <div class={i % 2 === 1 ? "lg:order-2" : ""}>
             <div class="aspect-[4/3] overflow-hidden shadow-2xl bg-ink/10">
-              <div class="flex h-full snap-x snap-mandatory overflow-x-auto scrollbar-hide">
+              <div class="flex h-full snap-x snap-mandatory overflow-x-auto scrollbar-hide" tabindex="0" role="region" aria-label="Photo carousel">
                 {r.images.map((img) => (
                   <img
                     src={img}
@@ -118,7 +118,7 @@ const rooms = [
               </div>
             </div>
             {r.images.length > 1 && (
-              <p class="text-xs text-ink/40 mt-3 italic">Swipe for more views →</p>
+              <p class="text-xs text-ink/70 mt-3 italic">Swipe for more views →</p>
             )}
           </div>
 

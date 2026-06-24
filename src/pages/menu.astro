@@ -158,7 +158,7 @@ const menuTabs = [
 
   <!-- TABS -->
   <section class="bg-ink sticky top-[88px] sm:top-[96px] z-40 border-t border-cream/10">
-    <div class="max-w-5xl mx-auto px-5 sm:px-8 overflow-x-auto">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 overflow-x-auto" tabindex="0" role="region" aria-label="Menu sections">
       <div class="flex gap-1 sm:gap-2 py-2">
         {menuTabs.map((t) => (
           <a
@@ -228,7 +228,7 @@ const menuTabs = [
 
       <div id="cocktails">
         <h2 class="font-display text-2xl sm:text-4xl text-ink mb-2 pb-3 border-b border-gold/40">Signature Cocktails</h2>
-        <p class="text-ink/55 text-sm italic mb-8 mt-3">Offering subject to change. Ask your server for tonight's bar features.</p>
+        <p class="text-ink/70 text-sm italic mb-8 mt-3">Offering subject to change. Ask your server for tonight's bar features.</p>
 
         <div class="grid sm:grid-cols-2 gap-6 sm:gap-8 mb-10">
           {cocktailsFeatured.map((c) => (
@@ -251,7 +251,7 @@ const menuTabs = [
             <li class="flex justify-between items-start gap-4 sm:gap-6">
               <div class="flex-1">
                 <p class="text-ink font-medium text-base sm:text-lg">{c.name}</p>
-                <p class="text-ink/60 text-sm leading-relaxed">{c.desc}</p>
+                <p class="text-ink/70 text-sm leading-relaxed">{c.desc}</p>
               </div>
               <span class="text-ink/70 text-base sm:text-lg tabular-nums whitespace-nowrap">${c.price}</span>
             </li>
@@ -267,7 +267,7 @@ const menuTabs = [
 
       <div id="desserts">
         <h2 class="font-display text-2xl sm:text-4xl text-ink mb-2 pb-3 border-b border-gold/40">Desserts</h2>
-        <p class="text-ink/55 text-sm italic mb-8 mt-3">Offering subject to change.</p>
+        <p class="text-ink/70 text-sm italic mb-8 mt-3">Offering subject to change.</p>
 
         <div class="grid sm:grid-cols-2 gap-6 sm:gap-8 mb-10">
           {dessertsFeatured.map((d) => (
@@ -290,7 +290,7 @@ const menuTabs = [
             <li class="flex justify-between items-start gap-4 sm:gap-6">
               <div class="flex-1">
                 <p class="text-ink font-medium text-base sm:text-lg">{d.name}</p>
-                <p class="text-ink/60 text-sm leading-relaxed">{d.desc}</p>
+                <p class="text-ink/70 text-sm leading-relaxed">{d.desc}</p>
               </div>
               <span class="text-ink/70 text-base sm:text-lg tabular-nums whitespace-nowrap">${d.price}</span>
             </li>
@@ -306,13 +306,13 @@ const menuTabs = [
 
       <div id="wine">
         <h2 class="font-display text-2xl sm:text-4xl text-ink mb-2 pb-3 border-b border-gold/40">Wine</h2>
-        <p class="text-ink/55 text-sm italic mb-8 mt-3">
+        <p class="text-ink/70 text-sm italic mb-8 mt-3">
           Offering subject to change. Full wine list below — sparkling, white, and red selections by the bottle.
           <span class="block mt-1">Corkage fee: $40 per bottle (up to two 750ml bottles).</span>
         </p>
         <div class="bg-paper border border-line p-6 sm:p-10 text-center">
           <p class="font-display text-xl text-ink mb-3">Full Wine List</p>
-          <p class="text-ink/65 text-sm mb-6">
+          <p class="text-ink/70 text-sm mb-6">
             All bottle pours, organized by varietal — Chardonnay, Sauvignon Blanc, Cabernet, Pinot Noir, Merlot, and more.
           </p>
           <a href={url("/menus/wine-list.pdf")} target="_blank" rel="noopener" class="inline-block bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-8 py-3 hover:bg-cream transition">
@@ -321,7 +321,7 @@ const menuTabs = [
         </div>
       </div>
 
-      <p class="text-center text-ink/50 text-sm italic pt-4">
+      <p class="text-center text-ink/70 text-sm italic pt-4">
         Please inform your food server of any food allergies. Menu and pricing subject to change. Menu prices subject to San Jose surcharge.
       </p>
     </div>
