@@ -109,6 +109,13 @@ const cocktailsFeatured = [
   { name: "Wine by the Glass", img: `${base}/photos/drink-wine-by-glass.jpg`, price: null },
 ];
 
+const signatureDishes = [
+  { name: "Scott's Cioppino", section: "Seafood Favorites", img: `${base}/photos/food-cioppino.jpg`, anchor: "#seafood" },
+  { name: "Dungeness Crab Cakes", section: "Appetizers", img: `${base}/photos/food-crab-cakes.jpg`, anchor: "#appetizers" },
+  { name: "Jumbo Wrapped Prawns", section: "Appetizers", img: `${base}/photos/food-prawns.jpg`, anchor: "#appetizers" },
+  { name: "Pesto Rigatoni with Salmon", section: "Pasta & Classics", img: `${base}/photos/food-pesto-rigatoni.jpg`, anchor: "#pasta" },
+];
+
 const menuTabs = [
   { id: "appetizers", label: "Appetizers" },
   { id: "seafood", label: "Seafood" },
@@ -128,6 +135,24 @@ const menuTabs = [
       <p class="text-cream/70 max-w-xl mx-auto leading-relaxed">
         Discover the best of coastal cuisine and timeless steakhouse classics.
       </p>
+    </div>
+  </section>
+
+  <!-- SIGNATURE DISHES -->
+  <section class="bg-ink-soft py-10 sm:py-12">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <p class="text-gold uppercase tracking-[0.3em] text-xs text-center mb-6">Signature Dishes</p>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {signatureDishes.map((d) => (
+          <a href={d.anchor} class="group block">
+            <div class="aspect-square overflow-hidden bg-ink/20 mb-3">
+              <img src={d.img} alt={d.name} class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" />
+            </div>
+            <p class="text-cream text-sm font-display leading-tight">{d.name}</p>
+            <p class="text-cream/55 text-xs uppercase tracking-widest mt-1">{d.section}</p>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 
