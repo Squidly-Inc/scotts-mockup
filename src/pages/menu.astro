@@ -4,136 +4,443 @@ import Layout from "../layouts/Layout.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const url = (p: string) => `${base}${p}`;
 
-const sections = [
-  {
-    id: "appetizers",
-    title: "Appetizers",
-    items: [
-      { name: "Fried Calamari", price: "21" },
-      { name: "Shrimp Cocktail Veracruz", price: "25" },
-      { name: "Oysters on the Half Shell", price: "22 / 42" },
-      { name: "Jumbo Wrapped Prawns", price: "26" },
-      { name: "Tempura Fried Cauliflower", price: "19" },
-      { name: "Oysters Rockefeller", price: "24 / 46" },
-      { name: "Crab Cakes", price: "24" },
-      { name: "Yellowtail Hamachi", price: "28" },
-    ],
-  },
-  {
-    id: "soups-salads",
-    title: "Soups & Salads",
-    items: [
-      { name: "Scott's Famous Clam Chowder", price: "10" },
-      { name: "Lobster Bisque", price: "12" },
-      { name: "Classic Caesar", price: "6 / 10" },
-      { name: "Pear & Strawberry Salad", price: "15" },
-      { name: "Crab Louie", price: "25" },
-      { name: "Ahi Tuna Salad", price: "29" },
-    ],
-  },
-  {
-    id: "seafood",
-    title: "Seafood Favorites",
-    items: [
-      { name: "Grilled Salmon", price: "32" },
-      { name: "Petrale Sole", price: "34" },
-      { name: "Seafood Risotto", price: "32" },
-      { name: "Scott's Cioppino", price: "38" },
-      { name: "Crispy Fish Tacos", price: "23" },
-      { name: "Fish & Chips", price: "24" },
-    ],
-  },
-  {
-    id: "entrees",
-    title: "Entrées",
-    items: [
-      { name: "Lobster Roll", price: "34" },
-      { name: "Crab Cake Sandwich", price: "26" },
-      { name: "Chicken Marsala", price: "27" },
-      { name: "Steak Frites", price: "36" },
-      { name: "Blackened Fish Sandwich", price: "27" },
-      { name: "Petite Filet", price: "42" },
-    ],
-  },
-  {
-    id: "pasta",
-    title: "Pasta & Classics",
-    items: [
-      { name: "Linguini & Clams", price: "29" },
-      { name: "Mushroom Ravioli", price: "27" },
-      { name: "Pesto Rigatoni with Salmon", price: "32" },
-      { name: "Shrimp Scampi Linguini", price: "30" },
-    ],
-  },
-  {
-    id: "sides",
-    title: "Sides",
-    items: [
-      { name: "Sautéed Broccolini", price: "12" },
-      { name: "Grilled Asparagus", price: "13" },
-      { name: "Au Gratin Potatoes", price: "12" },
-      { name: "Garlic Mashed Potatoes", price: "10" },
-      { name: "Truffle Fries", price: "13" },
-      { name: "Sautéed Vegetables", price: "11" },
-    ],
-  },
-];
+type Item = {
+  name: string;
+  desc?: string;
+  price: string;
+  raw?: boolean;
+  v?: boolean;
+  vg?: boolean;
+};
+type Section = { title: string; items: Item[]; note?: string };
+type Menu = { id: string; label: string; sub?: string; sections: Section[] };
 
-const desserts = [
-  { name: "Molten Chocolate Cake", desc: "Warm chocolate cake with a molten center, served with vanilla ice cream", price: "15" },
-  { name: "Crème Brûlée", desc: "Silky vanilla custard with a caramelized sugar crust", price: "13" },
-  { name: "Warm Brioche Bread Pudding", desc: "House-made brioche bread pudding topped with warm bourbon caramel sauce, served with vanilla bean ice cream", price: "15" },
-  { name: "Key Lime Pie", desc: "Creamy key lime filling in a graham cracker crust, topped with whipped cream and lime zest", price: "13" },
-  { name: "Seasonal Sorbet Trio", desc: "A refreshing selection of house-selected seasonal sorbets", price: "11" },
-];
+const lunch: Menu = {
+  id: "lunch",
+  label: "Lunch",
+  sections: [
+    {
+      title: "Raw Bar",
+      items: [
+        { name: "Fresh Oysters on the Half Shell", desc: "Champagne mignonette and fresh lemon.", price: "(6) $25 · (12) $45", raw: true },
+        { name: "Shrimp Cocktail Veracruz", desc: "Wild-caught Mexican shrimp, gently poached and chilled, with avocado, tomato, red onion, cilantro, and our signature Veracruz-style cocktail sauce.", price: "26" },
+        { name: "Yellowtail Hamachi", desc: "Fresh yellowtail sashimi, citrus ponzu, serrano pepper, salmon roe, and microgreens.", price: "28", raw: true },
+      ],
+    },
+    {
+      title: "Starters",
+      items: [
+        { name: "Fried Calamari", desc: "Lightly fried calamari with lemon shallot beurre blanc.", price: "21" },
+        { name: "Crab Cakes", desc: "Jumbo lump crab cakes served with mixed greens, orange segments, shredded jicama, balsamic vinaigrette, and remoulade.", price: "26" },
+        { name: "Tempura Fried Cauliflower", desc: "Tempura-fried cauliflower with smoked jalapeño crema.", price: "19", v: true },
+      ],
+    },
+    {
+      title: "Soups & Salads",
+      items: [
+        { name: "Scott's Famous Clam Chowder", desc: "Boston-style clam chowder with applewood-smoked bacon, cream, and a touch of sherry.", price: "Cup $13 · Bowl $15" },
+        { name: "Lobster Bisque", desc: "Rich and creamy lobster bisque finished with brandy and fresh herbs.", price: "Cup $14 · Bowl $16" },
+        { name: "Classic Caesar Salad", desc: "Crisp romaine hearts, Parmesan, garlic croutons, and anchovies tossed in house Caesar dressing.", price: "16" },
+        { name: "Pear & Strawberry Salad", desc: "Mixed greens, fresh pears, strawberries, candied pecans, Gorgonzola, and raspberry vinaigrette.", price: "17", v: true },
+        { name: "Asian Chicken Salad", desc: "Grilled herb-marinated chicken breast, Napa cabbage, romaine, shredded carrots, cucumbers, mandarin oranges, avocado, crispy wontons, toasted almonds, scallions, cilantro, and ginger sesame vinaigrette.", price: "26" },
+        { name: "Grilled Salmon & Avocado Salad", desc: "Fresh Atlantic salmon, avocado, mixed greens, cherry tomatoes, cucumber, red onions, roasted corn, feta cheese, toasted pepitas, and lemon herb vinaigrette.", price: "29" },
+        { name: "Seafood Louie Salad", desc: "Iceberg lettuce, wild Mexican prawns, Dungeness crab, tomatoes, avocado, Kalamata olives, broccoli, and Louie dressing.", price: "32" },
+      ],
+    },
+    {
+      title: "Sandwiches & Burgers",
+      note: "Served with your choice of French fries or mixed greens.",
+      items: [
+        { name: "Scott's Lobster Roll", desc: "Fresh Maine lobster, lightly dressed with lemon herb aioli and fresh herbs, served on a toasted buttered brioche roll with crisp lettuce.", price: "36" },
+        { name: "Dungeness Crab Melt", desc: "Sweet Dungeness crab layered with fresh avocado, melted Tillamook white cheddar, roasted tomatoes, and house lemon herb aioli on grilled artisan sourdough.", price: "28" },
+        { name: "Blackened Fish Sandwich", desc: "Fresh Atlantic salmon blackened with our signature Cajun spices, topped with melted Pepper Jack cheese, fresh avocado, crisp lettuce, tomatoes, red onions, and house tarragon aioli on toasted ciabatta.", price: "24" },
+        { name: "Scott's Signature Burger", desc: "Fresh 8 oz Certified Angus Beef®, topped with melted Tillamook white cheddar, applewood-smoked bacon, crisp lettuce, tomatoes, red onion, pickles, and house burger sauce on a toasted brioche bun.", price: "24", raw: true },
+        { name: "Grilled Chicken Club", desc: "Herb-marinated grilled chicken breast topped with applewood-smoked bacon, fresh avocado, melted Swiss cheese, crisp lettuce, vine-ripened tomatoes, and basil pesto aioli on toasted artisan sourdough.", price: "22" },
+      ],
+    },
+    {
+      title: "Lunch Favorites",
+      items: [
+        { name: "Scott's Famous Dungeness Crab & Seafood Cioppino", desc: "A San Francisco classic featuring Dungeness crab, shrimp, scallops, fresh fish, mussels, clams, and calamari in a robust tomato, white wine, and herb broth. Served with garlic sourdough.", price: "44" },
+        { name: "Grilled Halibut", desc: "Grilled Alaskan halibut, sautéed artichokes, spinach, mushrooms, blistered cherry tomatoes, Yukon Gold potatoes, and asparagus cream sauce.", price: "38" },
+        { name: "Seafood Sauté", desc: "Wild Mexican prawns, diver scallops, and sweet Dungeness crab served over Jasmine rice with haricot verts and white wine lemon beurre blanc.", price: "36" },
+        { name: "Almond Crusted Seabass", desc: "Almond-crusted blue nose sea bass, creamy garlic mashed potatoes, sautéed spinach, roasted cherry tomatoes, fresh herbs, and a light aged balsamic reduction.", price: "36" },
+        { name: "Crab Stuffed Salmon", desc: "Fresh Atlantic salmon stuffed with sweet Dungeness crab, roasted fingerling potatoes, haricots verts, and lemon beurre blanc.", price: "34" },
+        { name: "Grilled Petrale Sole Doré", desc: "Lightly floured Petrale sole, pan-seared until golden with lemon-caper beurre blanc, roasted fingerling potatoes, and seasonal vegetables.", price: "32" },
+        { name: "Fish & Chips", desc: "Wild North Pacific cod hand-dipped in our signature beer batter and fried until golden, served with seasoned French fries, creamy house tartar sauce, fresh coleslaw, grilled lemon, and malt vinegar.", price: "26" },
+      ],
+    },
+    {
+      title: "Pasta",
+      items: [
+        { name: "Lobster Linguini", desc: "Maine lobster, linguine, roasted tomatoes, spinach, garlic, white wine, and lobster cream sauce.", price: "38" },
+        { name: "Angel Hair", desc: "Sweet Dungeness crab, smoked andouille sausage, angel hair pasta, blistered cherry tomatoes, garlic, white wine, lemon, fresh herbs, and extra virgin olive oil.", price: "34" },
+        { name: "Linguini & Clams", desc: "Little neck clams, linguini, garlic, white wine, lemon, fresh herbs, and extra virgin olive oil.", price: "32" },
+        { name: "Chicken Pesto", desc: "Grilled herb-marinated chicken breast, penne pasta, basil pesto, sautéed mushrooms, applewood-smoked bacon, blistered cherry tomatoes, shaved Parmesan, and fresh basil.", price: "28" },
+      ],
+    },
+    {
+      title: "From the Grill",
+      items: [
+        { name: "Filet Mignon & Shrimp Scampi", desc: "6 oz filet mignon with shrimp (2) in a garlic white wine butter sauce, seasonal vegetables, and creamy garlic mashed potatoes.", price: "42", raw: true },
+        { name: "Chicken Madeira", desc: "Pan-roasted chicken breast, creamy garlic mashed potatoes, haricots verts, and a creamy Madeira wine sauce with wild mushrooms.", price: "30" },
+      ],
+    },
+    {
+      title: "Vegetarian",
+      items: [
+        { name: "Mushroom Ravioli", desc: "Wild mushroom ravioli, roasted wild mushrooms, white wine Parmesan cream, fresh thyme, shaved Parmesan, and microgreens.", price: "28", v: true },
+        { name: "Teriyaki Glazed Tofu", desc: "Crispy tofu, baby bok choy, shiitake mushrooms, roasted carrots, jasmine rice, scallions, toasted sesame seeds, and house-made teriyaki glaze.", price: "26", vg: true },
+      ],
+    },
+  ],
+};
 
-const dessertsFeatured = [
-  { name: "Molten Chocolate Cake", img: `${base}/photos/dessert-lava-cake.jpg`, price: "15" },
-  { name: "Key Lime Pie", img: `${base}/photos/dessert-key-lime.jpg`, price: "13" },
-];
+const dinner: Menu = {
+  id: "dinner",
+  label: "Dinner",
+  sections: [
+    {
+      title: "Raw Bar",
+      items: [
+        { name: "Fresh Oysters on the Half Shell", desc: "Champagne mignonette and fresh lemon.", price: "(6) $25 · (12) $45", raw: true },
+        { name: "Shrimp Cocktail Veracruz", desc: "Wild-caught Mexican shrimp, gently poached and chilled, with avocado, tomato, red onion, cilantro, and our signature Veracruz-style cocktail sauce.", price: "26" },
+        { name: "Yellowtail Hamachi", desc: "Fresh yellowtail sashimi, citrus ponzu, serrano pepper, salmon roe, and microgreens.", price: "28", raw: true },
+        { name: "Scott's Signature Seafood Tower", desc: "Fresh oysters on the half shell, wild-caught Mexican shrimp, yellowtail hamachi, chilled lobster, Champagne mignonette, Veracruz cocktail sauce, citrus ponzu, fresh lemon, and house-made horseradish.", price: "Half $95 · Grand $185", raw: true },
+      ],
+    },
+    {
+      title: "Starters",
+      items: [
+        { name: "Fried Calamari", desc: "Lightly fried calamari with lemon shallot beurre blanc.", price: "21" },
+        { name: "Oysters Rockefeller", desc: "Fresh oysters baked with creamed spinach, Parmesan, herb butter, and a touch of Pernod.", price: "(6) $27 · (12) $50", raw: true },
+        { name: "Crab Cakes", desc: "Jumbo lump crab cakes served with mixed greens, orange segments, shredded jicama, balsamic vinaigrette, and remoulade.", price: "26" },
+        { name: "Tempura Fried Cauliflower", desc: "Tempura-fried cauliflower with smoked jalapeño crema.", price: "19", v: true },
+      ],
+    },
+    {
+      title: "Soup & Salads",
+      items: [
+        { name: "Scott's Famous Clam Chowder", desc: "Boston-style clam chowder with applewood-smoked bacon, cream, and a touch of sherry.", price: "Cup $13 · Bowl $15" },
+        { name: "Lobster Bisque", desc: "Rich and creamy lobster bisque finished with brandy and fresh herbs.", price: "Cup $14 · Bowl $16" },
+        { name: "Classic Caesar Salad", desc: "Crisp romaine hearts, Parmesan, garlic croutons, and anchovies tossed in house Caesar dressing.", price: "16" },
+        { name: "Pear & Strawberry Salad", desc: "Mixed greens, fresh pears, strawberries, candied pecans, Gorgonzola, and raspberry vinaigrette.", price: "17", v: true },
+        { name: "Seafood Louie Salad", desc: "Iceberg lettuce, wild Mexican prawns, Dungeness crab, tomatoes, avocado, Kalamata olives, broccoli, and Louie dressing.", price: "34" },
+      ],
+    },
+    {
+      title: "Seafood Entrées",
+      items: [
+        { name: "Grilled Halibut", desc: "Grilled Alaskan halibut, sautéed artichokes, spinach, mushrooms, blistered cherry tomatoes, Yukon Gold potatoes, and asparagus cream sauce.", price: "46" },
+        { name: "Almond Crusted Seabass", desc: "Almond-crusted blue nose sea bass, creamy garlic mashed potatoes, sautéed spinach, roasted cherry tomatoes, fresh herbs, and a light aged balsamic reduction.", price: "44" },
+        { name: "Seared Ahi Tuna", desc: "Sesame-crusted ahi tuna, wasabi mashed potatoes, baby bok choy, and ginger-citrus soy reduction.", price: "42", raw: true },
+        { name: "Crab Stuffed Salmon", desc: "Fresh Atlantic salmon stuffed with sweet Dungeness crab, roasted fingerling potatoes, haricots verts, and lemon beurre blanc.", price: "42" },
+        { name: "Pan-Seared Scallops", desc: "Pan-seared diver scallops, creamy Parmesan risotto, grilled asparagus, roasted sweet corn, and lemon herb beurre blanc.", price: "48" },
+        { name: "Lobster Tail", desc: "12 oz warm-water lobster tail, roasted red potatoes, grilled asparagus, drawn butter, and grilled lemon.", price: "MP" },
+      ],
+    },
+    {
+      title: "Pasta",
+      items: [
+        { name: "Linguini & Clams", desc: "Little neck clams, linguini, garlic, white wine, lemon, fresh herbs, and extra virgin olive oil.", price: "34" },
+        { name: "Lobster Linguini", desc: "Maine lobster, linguine, roasted tomatoes, spinach, garlic, white wine, and lobster cream sauce.", price: "44" },
+        { name: "Angel Hair", desc: "Sweet Dungeness crab, smoked andouille sausage, angel hair pasta, blistered cherry tomatoes, garlic, white wine, lemon, fresh herbs, and extra virgin olive oil.", price: "39" },
+        { name: "Chicken Pesto", desc: "Grilled herb-marinated chicken breast, penne pasta, basil pesto, sautéed mushrooms, applewood-smoked bacon, blistered cherry tomatoes, shaved Parmesan, and fresh basil.", price: "32" },
+      ],
+    },
+    {
+      title: "Scott's Classics",
+      items: [
+        { name: "Seafood Sauté", desc: "Wild Mexican prawns, diver scallops, and sweet Dungeness crab served over Jasmine rice with haricot verts and white wine lemon beurre blanc.", price: "46" },
+        { name: "Scott's Famous Dungeness Crab & Seafood Cioppino", desc: "A San Francisco classic featuring Dungeness crab, shrimp, scallops, fresh fish, mussels, clams, and calamari in a robust tomato, white wine, and herb broth. Served with garlic sourdough.", price: "48" },
+        { name: "Grilled Petrale Sole Doré", desc: "Lightly floured Petrale sole, pan-seared until golden with lemon-caper beurre blanc, roasted fingerling potatoes, and seasonal vegetables.", price: "42" },
+        { name: "Seafood Paella", desc: "Saffron-infused rice with Spanish chorizo, clams, mussels, wild Mexican prawns, fresh fish, calamari, roasted peppers, peas, and fresh herbs.", price: "52" },
+      ],
+    },
+    {
+      title: "From the Grill",
+      items: [
+        { name: "Filet Mignon & Dungeness Crab Scampi", desc: "8 oz filet mignon with sweet Dungeness crab in a garlic white wine butter sauce, grilled asparagus, and creamy garlic mashed potatoes.", price: "64", raw: true },
+        { name: "Bone-In Ribeye Steak", desc: "Hand-cut 18 oz bone-in ribeye, grilled to perfection with roasted fingerling potatoes, grilled broccolini, and roasted garlic herb butter.", price: "68", raw: true },
+        { name: "Grilled Lamb Chops", desc: "Three grilled New Zealand lamb chops served with rosemary roasted fingerling potatoes, grilled broccolini, and lemon oregano vinaigrette.", price: "56", raw: true },
+        { name: "Scott's Classic Surf & Turf", desc: "An 8 oz filet mignon paired with a 12 oz warm-water lobster tail, served with roasted red potatoes, grilled asparagus, drawn butter, and rich demi-glace.", price: "MP", raw: true },
+        { name: "Chicken Madeira", desc: "Pan-roasted chicken breast, creamy garlic mashed potatoes, haricots verts, and a creamy Madeira wine sauce with wild mushrooms.", price: "34" },
+      ],
+    },
+    {
+      title: "Vegetarian",
+      items: [
+        { name: "Mushroom Ravioli", desc: "Wild mushroom ravioli, roasted wild mushrooms, white wine Parmesan cream, fresh thyme, shaved Parmesan, and microgreens.", price: "31", v: true },
+        { name: "Teriyaki Glazed Tofu", desc: "Crispy tofu, baby bok choy, shiitake mushrooms, roasted carrots, jasmine rice, scallions, toasted sesame seeds, and house-made teriyaki glaze.", price: "28", vg: true },
+      ],
+    },
+  ],
+};
 
-const cocktails = [
-  { name: "Blueberry Lemon Drop Martini", desc: "Stoli blueberry vodka, blueberry purée, triple sec, fresh lemon juice", price: "19" },
-  { name: "Corazon Puro Margarita", desc: "Tequila reposado, orange liqueur, agave nectar, lime juice, pomegranate", price: "19" },
-  { name: "Scott's Signature Sangria", desc: "Red wine, white wine, Spanish brandy, fruit citrus, fresh fruit", price: "18" },
-  { name: "Maple Manhattan", desc: "Knob Creek maple bourbon, angostura bitters, sweet vermouth", price: "19" },
-  { name: "Espresso Martini", desc: "Absolut vodka, Kahlúa, fresh espresso", price: "19" },
-  { name: "Scott's Old Fashioned", desc: "Angel's Envy bourbon, angostura bitters, Luxardo cherry", price: "19" },
-  { name: "Aperol Spritz", desc: "Aperol, sparkling wine, soda water", price: "18" },
-  { name: "Coconut Escape", desc: "Absolut vodka, Malibu rum, coconut cream, pineapple, fresh lemon", price: "19" },
-  { name: "Coastal Bloom", desc: "Hendrick's gin, elderflower liqueur, lime juice, orange juice", price: "19" },
-];
+const bar: Menu = {
+  id: "bar",
+  label: "Bar",
+  sub: "Signature Cocktails · Premium Spirits · Featured Beers",
+  sections: [
+    {
+      title: "Martinis",
+      items: [
+        { name: "Park Avenue Martini", desc: "Tito's vodka, dry vermouth, blue cheese olives.", price: "18" },
+        { name: "Espresso Martini", desc: "Ketel One vodka, espresso, Kahlúa, Irish cream.", price: "18" },
+        { name: "Cucumber Martini", desc: "Hendrick's gin, St-Germain, mint, fresh lime.", price: "19" },
+        { name: "Blueberry Lemon Drop", desc: "Stoli blueberry vodka, fresh muddled blueberries, triple sec, fresh lemon juice.", price: "19" },
+      ],
+    },
+    {
+      title: "Scott's Classics",
+      items: [
+        { name: "Old Fashioned", desc: "Woodford Reserve, demerara sugar, orange bitters.", price: "19" },
+        { name: "Sangria", desc: "Red wine, white wine, Spanish brandy, fruit citrus, fresh fruit.", price: "19" },
+        { name: "Maple Manhattan", desc: "Knob Creek maple bourbon, bitters, sweet vermouth.", price: "18" },
+        { name: "Coral Cosmopolitan", desc: "Absolut mandarin vodka, orange liqueur, cranberry juice.", price: "18" },
+      ],
+    },
+    {
+      title: "Coastal Collection",
+      items: [
+        { name: "Corazón Puro Margarita", desc: "Tequila reposado, orange liqueur, agave nectar, lime juice, pomegranate juice.", price: "19" },
+        { name: "Harbor Mule", desc: "Tito's vodka, ginger beer, fresh lime.", price: "18" },
+        { name: "Mai Tai", desc: "Plantation rum, Myers dark rum, Bacardi añejo, orange juice, pineapple juice, grenadine.", price: "19" },
+        { name: "Date at the Beach", desc: "SKYY strawberry vodka, fresh strawberries, basil, pomegranate juice, moscato wine.", price: "19" },
+      ],
+    },
+    {
+      title: "Sparkling Favorites",
+      items: [
+        { name: "Golden Coast Spritz", desc: "Aperol, sparkling wine, orange.", price: "18" },
+        { name: "Scott's Royale", desc: "Sparkling wine, Chambord, fresh berries.", price: "19" },
+        { name: "French 75", desc: "Gin, lemon, sparkling wine.", price: "19" },
+      ],
+    },
+    {
+      title: "Mocktails",
+      items: [
+        { name: "Tropical Escape", desc: "Pineapple juice, coconut cream, fresh lemon, soda water.", price: "9" },
+        { name: "Garden Mule", desc: "Lime juice, ginger beer, mint.", price: "9" },
+        { name: "Cucumber Refresher", desc: "Cucumber, mint, lime, soda water.", price: "9" },
+      ],
+    },
+    {
+      title: "Draft Beers",
+      items: [
+        { name: "Stella Artois", desc: "Belgium", price: "10" },
+        { name: "Lagunitas IPA", desc: "Petaluma, CA", price: "10" },
+        { name: "Blue Moon", desc: "Colorado", price: "10" },
+        { name: "Modelo Especial", desc: "Mexico", price: "10" },
+        { name: "Kona Longboard", desc: "Hawaii", price: "10" },
+        { name: "Pacifico", desc: "Mexico", price: "10" },
+        { name: "Sierra Nevada Hazy", desc: "Chico, CA", price: "10" },
+        { name: "Coors Light", desc: "Colorado", price: "9" },
+      ],
+    },
+    {
+      title: "Bottled Beers",
+      items: [
+        { name: "Corona", desc: "Mexico", price: "9" },
+        { name: "Bud Light", desc: "Missouri", price: "9" },
+        { name: "Stella Non-Alcoholic", desc: "Belgium", price: "8" },
+      ],
+    },
+    {
+      title: "Non-Alcoholic",
+      items: [
+        { name: "San Pellegrino", desc: "Sparkling mineral water.", price: "11" },
+        { name: "Acqua Panna", desc: "Natural spring water.", price: "11" },
+        { name: "Orange Juice", price: "6" },
+        { name: "Cranberry Juice", price: "6" },
+        { name: "Pineapple Juice", price: "6" },
+        { name: "Red Bull", price: "7" },
+        { name: "Sugar-Free Red Bull", price: "7" },
+      ],
+    },
+    {
+      title: "Tequila",
+      items: [
+        { name: "Don Julio Blanco", price: "16" },
+        { name: "Don Julio Reposado", price: "17" },
+        { name: "Don Julio Añejo", price: "19" },
+        { name: "Don Julio 1942", price: "42" },
+        { name: "Patrón Silver", price: "16" },
+        { name: "Patrón Reposado", price: "17" },
+        { name: "Gran Patrón Burdeos", price: "55" },
+        { name: "Fortaleza Blanco", price: "18" },
+        { name: "Fortaleza Reposado", price: "20" },
+        { name: "Clase Azul Gold", price: "32" },
+        { name: "Clase Azul Reposado", price: "32" },
+        { name: "Herradura Suprema", price: "32" },
+      ],
+    },
+    {
+      title: "Mezcal",
+      items: [
+        { name: "Clase Azul Durango", price: "40" },
+        { name: "Clase Azul Guerrero", price: "42" },
+        { name: "Vida Mezcal", price: "16" },
+      ],
+    },
+    {
+      title: "Whiskey & Rye",
+      items: [
+        { name: "Bulleit Rye", price: "15" },
+        { name: "Woodford Rye", price: "16" },
+      ],
+    },
+    {
+      title: "Bourbon",
+      items: [
+        { name: "Buffalo Trace", price: "15" },
+        { name: "Woodford Reserve", price: "16" },
+        { name: "Bulleit Bourbon", price: "15" },
+        { name: "Elijah Craig", price: "16" },
+        { name: "Angel's Envy", price: "18" },
+        { name: "Four Roses Small Batch", price: "17" },
+        { name: "Maker's Mark", price: "16" },
+        { name: "Knob Creek", price: "18" },
+        { name: "Knob Creek Maple", price: "16" },
+        { name: "Jack Daniel's", price: "14" },
+      ],
+    },
+    {
+      title: "Canadian Whiskey",
+      items: [
+        { name: "Crown Royal", price: "15" },
+        { name: "Canadian Club", price: "13" },
+        { name: "Seagrams 7", price: "13" },
+        { name: "Seagrams VO", price: "13" },
+      ],
+    },
+    {
+      title: "Japanese Whiskey",
+      items: [
+        { name: "Toki Suntory Whisky", price: "14" },
+        { name: "Hibiki Harmony", price: "28" },
+        { name: "The Yamazaki 12", price: "50" },
+      ],
+    },
+  ],
+};
 
-const cocktailsFeatured = [
-  { name: "Scott's Signature Sangria", img: `${base}/photos/drink-signature-sangria.jpg`, price: "18" },
-  { name: "Wine by the Glass", img: `${base}/photos/drink-wine-by-glass.jpg`, price: null },
+const happyHour: Menu = {
+  id: "happy-hour",
+  label: "Happy Hour",
+  sub: "Scott's Social Hour · Monday to Saturday · 3 PM to 6 PM · Bar, Lounge, Patio",
+  sections: [
+    {
+      title: "Bites",
+      items: [
+        { name: "The Social Tower", desc: "6 fresh oysters on the half shell, 6 shrimp cocktail Veracruz, yellowtail hamachi, crispy calamari, truffle garlic fries, champagne mignonette, cocktail sauce, citrus ponzu, smoked jalapeño crema.", price: "58", raw: true },
+        { name: "Fresh Oysters on the Half Shell", desc: "Champagne mignonette & fresh lemon. Minimum order 6.", price: "$2 each", raw: true },
+        { name: "Shrimp Cocktail Veracruz", desc: "Wild Mexican shrimp, avocado & signature cocktail sauce.", price: "18" },
+        { name: "Fried Calamari", desc: "Lemon shallot beurre blanc.", price: "15" },
+        { name: "Tempura Fried Cauliflower", desc: "Smoked jalapeño crema.", price: "13", v: true },
+        { name: "Truffle Parmesan Fries", desc: "White truffle oil, Parmesan, parsley, roasted garlic aioli.", price: "11", v: true },
+        { name: "Crispy Brussels Sprouts", desc: "Sweet chili glaze, crispy shallots, toasted almonds.", price: "13", v: true },
+        { name: "Scott's Burger Sliders", desc: "White cheddar, grilled onions, house sauce.", price: "16" },
+        { name: "Steak Bites", desc: "Chimichurri sauce.", price: "18" },
+        { name: "Baja Fish Tacos", desc: "Beer-battered cod, avocado crema, cabbage slaw.", price: "16" },
+      ],
+    },
+    {
+      title: "Drinks",
+      items: [
+        { name: "Harbor Mule", desc: "Tito's handmade vodka, ginger beer, fresh lime.", price: "10" },
+        { name: "Golden Coast Spritz", desc: "Aperol, sparkling wine, soda water, fresh orange.", price: "10" },
+        { name: "Old Fashioned", desc: "Woodford Reserve, demerara sugar, aromatic bitters.", price: "12" },
+        { name: "Espresso Martini", desc: "Ketel One vodka, Baileys Irish cream, Kahlúa, fresh espresso.", price: "13" },
+        { name: "Corazón Puro Margarita", desc: "Reposado tequila, pomegranate juice, orange liqueur, agave nectar, fresh lime.", price: "12" },
+        { name: "Sangria", desc: "House-made red wine sangria with fresh citrus.", price: "12" },
+        { name: "Scott's Martini", desc: "Choice of Tito's vodka or Bombay Sapphire gin with blue cheese olives or a lemon twist.", price: "13" },
+        { name: "Blueberry Lemon Drop", desc: "Stoli blueberry vodka, muddled blueberries, fresh lemon, triple sec.", price: "12" },
+        { name: "Draft Beer", desc: "Any draft beer.", price: "7" },
+        { name: "Select House Wines", desc: "Any select house wine.", price: "8" },
+      ],
+    },
+  ],
+};
+
+const desserts: Menu = {
+  id: "desserts",
+  label: "Desserts",
+  sections: [
+    {
+      title: "Sweet Finishes",
+      items: [
+        { name: "Molten Chocolate Cake", desc: "Chocolate cake with a warm molten center, accompanied by vanilla bean ice cream.", price: "15" },
+        { name: "Vanilla Bean Crème Brûlée", desc: "Silky custard infused with Madagascar vanilla and finished with a delicate caramelized sugar crust.", price: "13" },
+        { name: "Bourbon Caramel Bread Pudding", desc: "Warm house-made brioche bread pudding topped with bourbon caramel sauce and served with vanilla bean ice cream.", price: "15" },
+        { name: "Key Lime Pie", desc: "Classic Florida-style key lime custard in a graham cracker crust, finished with whipped cream and fresh lime zest.", price: "13" },
+        { name: "Scott's Sundae", desc: "French vanilla ice cream, hot fudge, caramel, candied pecans, whipped cream, and mint.", price: "12" },
+        { name: "Seasonal Sorbet", desc: "A refreshing selection of seasonal fruit sorbets. Please ask your server for today's flavors.", price: "11", vg: true },
+      ],
+    },
+    {
+      title: "Espresso & Coffee",
+      items: [
+        { name: "Fresh Brewed Coffee", price: "5" },
+        { name: "Decaffeinated Coffee", price: "5" },
+        { name: "Espresso", price: "5" },
+        { name: "Double Espresso", price: "7" },
+        { name: "Cappuccino", price: "7" },
+        { name: "Caffè Latte", price: "7" },
+        { name: "Caffè Americano", price: "6" },
+        { name: "Macchiato", price: "6" },
+        { name: "Hot Tea", price: "5" },
+      ],
+    },
+    {
+      title: "After-Dinner Drinks",
+      items: [
+        { name: "Espresso Martini", desc: "Ketel One vodka, Baileys Irish cream, Kahlúa and fresh espresso.", price: "18" },
+        { name: "Chocolate Martini", desc: "Vanilla vodka, Godiva chocolate liqueur, crème de cacao, heavy cream and chocolate syrup.", price: "17" },
+        { name: "Carajillo", desc: "Licor 43 shaken with fresh espresso.", price: "16" },
+        { name: "Nutty Irishman", desc: "Frangelico, Baileys Irish cream and coffee.", price: "16" },
+        { name: "Irish Coffee", desc: "Jameson Irish whiskey, brown sugar and fresh coffee.", price: "16" },
+        { name: "Italian Coffee", desc: "Disaronno Amaretto, coffee and whipped cream.", price: "16" },
+        { name: "French Coffee", desc: "Grand Marnier and coffee topped with whipped cream.", price: "16" },
+      ],
+    },
+    {
+      title: "Dessert Wines & Digestifs",
+      items: [
+        { name: "Barton & Guestier · Sauternes · 2023", price: "14" },
+        { name: "Inniskillin · Icewine Vidal · 2023", price: "20" },
+        { name: "Gaja · Grappa Darmagi · Italy", price: "16" },
+        { name: "Cockburn's 10yr · Tawny Port", price: "18" },
+        { name: "Cockburn's · Ruby Port", price: "16" },
+        { name: "Graham's 10yr · Tawny Port", price: "18" },
+        { name: "Graham's 20yr · Tawny Port", price: "22" },
+      ],
+    },
+  ],
+};
+
+const menus: Menu[] = [lunch, dinner, bar, happyHour, desserts];
+
+const tabs = [
+  ...menus.map((m) => ({ id: m.id, label: m.label })),
+  { id: "wine", label: "Wine" },
 ];
 
 const signatureDishes = [
-  { name: "Scott's Cioppino", section: "Seafood Favorites", img: `${base}/photos/food-cioppino.jpg`, anchor: "#seafood" },
-  { name: "Dungeness Crab Cakes", section: "Appetizers", img: `${base}/photos/food-crab-cakes.jpg`, anchor: "#appetizers" },
-  { name: "Jumbo Wrapped Prawns", section: "Appetizers", img: `${base}/photos/food-prawns.jpg`, anchor: "#appetizers" },
-  { name: "Pesto Rigatoni with Salmon", section: "Pasta & Classics", img: `${base}/photos/food-pesto-rigatoni.jpg`, anchor: "#pasta" },
-];
-
-const menuTabs = [
-  { id: "appetizers", label: "Appetizers" },
-  { id: "seafood", label: "Seafood" },
-  { id: "entrees", label: "Entrées" },
-  { id: "happy-hour", label: "Happy Hour" },
-  { id: "cocktails", label: "Cocktails" },
-  { id: "desserts", label: "Desserts" },
-  { id: "wine", label: "Wine" },
+  { name: "Scott's Cioppino", section: "Dinner · Classics", img: `${base}/photos/food-cioppino.jpg`, anchor: "#dinner" },
+  { name: "Dungeness Crab Cakes", section: "Dinner · Starters", img: `${base}/photos/food-crab-cakes.jpg`, anchor: "#dinner" },
+  { name: "Yellowtail Hamachi", section: "Dinner · Raw Bar", img: `${base}/photos/food-prawns.jpg`, anchor: "#dinner" },
+  { name: "Molten Chocolate Cake", section: "Desserts", img: `${base}/photos/dessert-lava-cake.jpg`, anchor: "#desserts" },
 ];
 ---
 
 <Layout title="Menus | Scott's Seafood San Jose">
   <section class="bg-ink pt-32 pb-12 sm:pb-16">
     <div class="max-w-5xl mx-auto px-5 sm:px-8 text-center">
-      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">The Menu</p>
+      <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4">The Menus</p>
       <h1 class="font-display text-4xl sm:text-6xl text-cream mb-4">Coastal cuisine, crafted daily.</h1>
       <p class="text-cream/70 max-w-xl mx-auto leading-relaxed">
-        Discover the best of coastal cuisine and timeless steakhouse classics.
+        Lunch, dinner, bar, happy hour, and dessert — every menu, fully priced.
       </p>
     </div>
   </section>
@@ -160,7 +467,7 @@ const menuTabs = [
   <section class="bg-ink sticky top-[88px] sm:top-[96px] z-40 border-t border-cream/10">
     <div class="max-w-5xl mx-auto px-5 sm:px-8 overflow-x-auto" tabindex="0" role="region" aria-label="Menu sections">
       <div class="flex gap-1 sm:gap-2 py-2">
-        {menuTabs.map((t) => (
+        {tabs.map((t) => (
           <a
             href={`#${t.id}`}
             class="text-cream/70 hover:text-gold text-xs sm:text-sm uppercase tracking-widest font-semibold px-4 sm:px-6 py-3 whitespace-nowrap transition"
@@ -173,147 +480,68 @@ const menuTabs = [
   </section>
 
   <section class="bg-cream-soft py-16 sm:py-24">
-    <div class="max-w-4xl mx-auto px-5 sm:px-8 space-y-16 sm:space-y-20">
-      {sections.map((s) => (
-        <div id={s.id}>
-          <h2 class="font-display text-2xl sm:text-4xl text-ink mb-8 sm:mb-10 pb-3 border-b border-gold/40">
-            {s.title}
-          </h2>
-          <ul class="space-y-5 sm:space-y-6">
-            {s.items.map((item) => (
-              <li class="flex justify-between items-baseline gap-4">
-                <span class="text-ink font-medium text-base sm:text-lg">{item.name}</span>
-                <span class="flex-1 border-b border-dotted border-ink/20 mb-1.5"></span>
-                <span class="text-ink/70 text-base sm:text-lg tabular-nums">${item.price}</span>
-              </li>
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 space-y-20 sm:space-y-28">
+      {menus.map((m) => (
+        <div id={m.id} class="scroll-mt-[160px] sm:scroll-mt-[180px]">
+          <div class="text-center mb-10 sm:mb-14">
+            <p class="text-gold-deep uppercase tracking-[0.3em] text-xs mb-3">Menu</p>
+            <h2 class="font-display text-3xl sm:text-5xl text-ink leading-tight">{m.label}</h2>
+            {m.sub && <p class="text-ink/70 text-sm italic mt-3">{m.sub}</p>}
+          </div>
+
+          <div class="space-y-14 sm:space-y-16">
+            {m.sections.map((s) => (
+              <div>
+                <h3 class="font-display text-xl sm:text-2xl text-ink mb-2 pb-3 border-b border-gold/40 uppercase tracking-wider">
+                  {s.title}
+                </h3>
+                {s.note && <p class="text-ink/70 text-sm italic mt-3 mb-5">{s.note}</p>}
+                <ul class="space-y-5 sm:space-y-6 mt-6">
+                  {s.items.map((item) => (
+                    <li class="flex justify-between items-start gap-4 sm:gap-6">
+                      <div class="flex-1 min-w-0">
+                        <p class="text-ink font-medium text-base sm:text-lg">
+                          {item.name}
+                          {item.raw && <sup class="text-gold-deep font-semibold ml-1" aria-label="Contains raw or undercooked ingredients">**</sup>}
+                          {item.v && <span class="ml-2 inline-block text-[10px] font-bold uppercase tracking-wider bg-teal-deep/10 text-teal-deep px-1.5 py-0.5 align-middle" aria-label="Vegetarian">V</span>}
+                          {item.vg && <span class="ml-2 inline-block text-[10px] font-bold uppercase tracking-wider bg-teal-deep/10 text-teal-deep px-1.5 py-0.5 align-middle" aria-label="Vegan">VG</span>}
+                        </p>
+                        {item.desc && <p class="text-ink/70 text-sm leading-relaxed mt-0.5">{item.desc}</p>}
+                      </div>
+                      <span class="text-ink/70 text-base sm:text-lg tabular-nums whitespace-nowrap">
+                        {/^\d+$/.test(item.price) ? `$${item.price}` : item.price}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
+
+          <p class="text-center mt-12">
+            <a href={url(`/menus/${m.id === "happy-hour" ? "happy-hour" : m.id === "desserts" ? "dessert-menu" : m.id + "-menu"}.pdf`)} target="_blank" rel="noopener" class="inline-block text-xs font-semibold uppercase tracking-widest text-gold-deep border-b border-gold-deep pb-1 hover:text-ink hover:border-ink transition">
+              Download {m.label} PDF →
+            </a>
+          </p>
         </div>
       ))}
 
-      <div id="happy-hour" class="bg-teal-deep -mx-5 sm:mx-0 sm:rounded-none px-6 sm:px-12 py-12 sm:py-14 text-cream">
-        <p class="text-gold-light uppercase tracking-[0.3em] text-xs mb-3">Mon–Fri · 4 – 6 PM</p>
-        <h2 class="font-display text-3xl sm:text-4xl mb-4">Happy Hour: Shuck & Stir Hour</h2>
-        <p class="text-cream/85 leading-relaxed mb-8 max-w-xl">
-          Oysters, classic cocktails, and elevated bar bites — done right.
-        </p>
-
-        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-3 mb-8 max-w-2xl">
-          <div>
-            <h3 class="text-gold-light text-xs uppercase tracking-widest font-semibold mb-3">Oysters & Bites</h3>
-            <ul class="space-y-2.5 text-sm">
-              <li class="flex justify-between items-baseline gap-3"><span>Oysters on the Half Shell</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$2 ea</span></li>
-              <li class="flex justify-between items-baseline gap-3"><span>Shrimp Cocktail</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$12</span></li>
-              <li class="flex justify-between items-baseline gap-3"><span>Crispy Calamari</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$12</span></li>
-              <li class="flex justify-between items-baseline gap-3"><span>Crab Cake Slider</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$10</span></li>
-              <li class="flex justify-between items-baseline gap-3"><span>Bar Burger & Frites</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$14</span></li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-gold-light text-xs uppercase tracking-widest font-semibold mb-3">Drinks</h3>
-            <ul class="space-y-2.5 text-sm">
-              <li class="flex justify-between items-baseline gap-3"><span>Select Wines by the Glass</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$9</span></li>
-              <li class="flex justify-between items-baseline gap-3"><span>Draft Beer</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$6</span></li>
-              <li class="flex justify-between items-baseline gap-3"><span>Well Cocktails</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$8</span></li>
-              <li class="flex justify-between items-baseline gap-3"><span>House Martini</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$10</span></li>
-              <li class="flex justify-between items-baseline gap-3"><span>Old Fashioned</span><span class="flex-1 border-b border-dotted border-cream/20 mb-1"></span><span class="text-cream/70 tabular-nums">$11</span></li>
-            </ul>
-          </div>
+      <!-- WINE (PDF only) -->
+      <div id="wine" class="scroll-mt-[160px] sm:scroll-mt-[180px]">
+        <div class="text-center mb-10 sm:mb-14">
+          <p class="text-gold-deep uppercase tracking-[0.3em] text-xs mb-3">Menu</p>
+          <h2 class="font-display text-3xl sm:text-5xl text-ink leading-tight">Wine</h2>
+          <p class="text-ink/70 text-sm italic mt-3">
+            Sparkling, white, red, and reserve selections — by the glass and bottle.
+          </p>
         </div>
-
-        <a href={url("/reservations")} class="inline-block bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-7 py-3 hover:bg-cream transition">
-          Reserve Bar Seating
-        </a>
-      </div>
-
-      <div id="cocktails">
-        <h2 class="font-display text-2xl sm:text-4xl text-ink mb-2 pb-3 border-b border-gold/40">Signature Cocktails</h2>
-        <p class="text-ink/70 text-sm italic mb-8 mt-3">Offering subject to change. Ask your server for tonight's bar features.</p>
-
-        <div class="grid sm:grid-cols-2 gap-6 sm:gap-8 mb-10">
-          {cocktailsFeatured.map((c) => (
-            <div class="bg-white shadow-sm overflow-hidden">
-              <div class="aspect-[4/3] overflow-hidden bg-ink/10">
-                <img src={c.img} alt={c.name} class="w-full h-full object-cover" />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between items-baseline gap-3">
-                  <h3 class="font-display text-lg text-ink">{c.name}</h3>
-                  {c.price && <span class="text-ink/70 text-sm tabular-nums">${c.price}</span>}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <ul class="space-y-5 sm:space-y-6">
-          {cocktails.map((c) => (
-            <li class="flex justify-between items-start gap-4 sm:gap-6">
-              <div class="flex-1">
-                <p class="text-ink font-medium text-base sm:text-lg">{c.name}</p>
-                <p class="text-ink/70 text-sm leading-relaxed">{c.desc}</p>
-              </div>
-              <span class="text-ink/70 text-base sm:text-lg tabular-nums whitespace-nowrap">${c.price}</span>
-            </li>
-          ))}
-        </ul>
-
-        <p class="text-center mt-8">
-          <a href={url("/menus/cocktails-menu.pdf")} target="_blank" rel="noopener" class="inline-block text-xs font-semibold uppercase tracking-widest text-gold-deep border-b border-gold-deep pb-1 hover:text-ink hover:border-ink transition">
-            Download Cocktails PDF →
-          </a>
-        </p>
-      </div>
-
-      <div id="desserts">
-        <h2 class="font-display text-2xl sm:text-4xl text-ink mb-2 pb-3 border-b border-gold/40">Desserts</h2>
-        <p class="text-ink/70 text-sm italic mb-8 mt-3">Offering subject to change.</p>
-
-        <div class="grid sm:grid-cols-2 gap-6 sm:gap-8 mb-10">
-          {dessertsFeatured.map((d) => (
-            <div class="bg-white shadow-sm overflow-hidden">
-              <div class="aspect-[4/3] overflow-hidden bg-ink/10">
-                <img src={d.img} alt={d.name} class="w-full h-full object-cover" />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between items-baseline gap-3">
-                  <h3 class="font-display text-lg text-ink">{d.name}</h3>
-                  <span class="text-ink/70 text-sm tabular-nums">${d.price}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <ul class="space-y-5 sm:space-y-6">
-          {desserts.map((d) => (
-            <li class="flex justify-between items-start gap-4 sm:gap-6">
-              <div class="flex-1">
-                <p class="text-ink font-medium text-base sm:text-lg">{d.name}</p>
-                <p class="text-ink/70 text-sm leading-relaxed">{d.desc}</p>
-              </div>
-              <span class="text-ink/70 text-base sm:text-lg tabular-nums whitespace-nowrap">${d.price}</span>
-            </li>
-          ))}
-        </ul>
-
-        <p class="text-center mt-8">
-          <a href={url("/menus/dessert-menu.pdf")} target="_blank" rel="noopener" class="inline-block text-xs font-semibold uppercase tracking-widest text-gold-deep border-b border-gold-deep pb-1 hover:text-ink hover:border-ink transition">
-            Download Desserts PDF →
-          </a>
-        </p>
-      </div>
-
-      <div id="wine">
-        <h2 class="font-display text-2xl sm:text-4xl text-ink mb-2 pb-3 border-b border-gold/40">Wine</h2>
-        <p class="text-ink/70 text-sm italic mb-8 mt-3">
-          Offering subject to change. Full wine list below — sparkling, white, and red selections by the bottle.
-          <span class="block mt-1">Corkage fee: $40 per bottle (up to two 750ml bottles).</span>
-        </p>
-        <div class="bg-paper border border-line p-6 sm:p-10 text-center">
+        <div class="bg-paper border border-line p-8 sm:p-12 text-center">
           <p class="font-display text-xl text-ink mb-3">Full Wine List</p>
-          <p class="text-ink/70 text-sm mb-6">
-            All bottle pours, organized by varietal — Chardonnay, Sauvignon Blanc, Cabernet, Pinot Noir, Merlot, and more.
+          <p class="text-ink/70 text-sm mb-3 max-w-md mx-auto">
+            Organized by varietal — Chardonnay, Sauvignon Blanc, Cabernet, Pinot Noir, Merlot, and reserve pours.
+          </p>
+          <p class="text-ink/70 text-xs italic mb-6">
+            Corkage fee: $40 per bottle (up to two 750 ml bottles).
           </p>
           <a href={url("/menus/wine-list.pdf")} target="_blank" rel="noopener" class="inline-block bg-gold text-ink text-xs font-semibold uppercase tracking-widest px-8 py-3 hover:bg-cream transition">
             Download Wine List PDF →
@@ -321,9 +549,22 @@ const menuTabs = [
         </div>
       </div>
 
-      <p class="text-center text-ink/70 text-sm italic pt-4">
-        Please inform your food server of any food allergies. Menu and pricing subject to change. Menu prices subject to San Jose surcharge.
-      </p>
+      <!-- LEGEND + DISCLAIMER -->
+      <div class="pt-8 border-t border-ink/10">
+        <div class="flex flex-wrap gap-x-8 gap-y-3 justify-center text-sm text-ink/80 mb-6">
+          <span><sup class="text-gold-deep font-semibold">**</sup> Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness, especially if you have certain medical conditions.</span>
+        </div>
+        <div class="flex flex-wrap gap-x-6 gap-y-2 justify-center text-xs text-ink/70 mb-6">
+          <span><span class="inline-block text-[10px] font-bold uppercase tracking-wider bg-teal-deep/10 text-teal-deep px-1.5 py-0.5 mr-1">V</span> Vegetarian</span>
+          <span><span class="inline-block text-[10px] font-bold uppercase tracking-wider bg-teal-deep/10 text-teal-deep px-1.5 py-0.5 mr-1">VG</span> Vegan</span>
+        </div>
+        <p class="text-center text-ink/70 text-sm italic">
+          Please inform your server of any food allergies or dietary restrictions — not all ingredients are listed on the menu.
+        </p>
+        <p class="text-center text-ink/70 text-sm italic mt-2">
+          Menu and pricing subject to change. Menu prices subject to applicable taxes and surcharges.
+        </p>
+      </div>
     </div>
   </section>
 </Layout>
