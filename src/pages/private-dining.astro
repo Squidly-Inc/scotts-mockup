@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { SITES } from "../lib/sites";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const photo = (name: string) => `${base}/photos/${name}`;
@@ -79,7 +80,7 @@ const rooms = [
       </h1>
       <p class="text-cream/75 max-w-xl mx-auto leading-relaxed">
         Every space below is on-site at our downtown San Jose restaurant.
-        Looking for a larger off-site event? See <a href="https://squidly-inc.github.io/scotts-ballroom/" class="text-gold underline hover:text-cream">Scott's Ballroom</a>.
+        Looking for a larger off-site event? See <a href={`${SITES.ballroom}/`} class="text-gold underline hover:text-cream">Scott's Ballroom</a>.
       </p>
     </div>
   </section>
