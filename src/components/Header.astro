@@ -15,7 +15,7 @@ const url = (p: string) => `${base}${p}`;
 >
   <div class="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
     <a href={url("/")} class="block">
-      <img src={url("/scotts-seafood-sj-white.png")} alt="Scott's Seafood San Jose" class="h-14 sm:h-16 w-auto" />
+      <img src={url("/scotts-seafood-sj-white.png")} alt="Scott's Seafood San Jose" class="w-auto" data-logo />
     </a>
 
     <nav class="hidden lg:flex items-center gap-8 text-sm tracking-wider uppercase text-cream/90">
@@ -84,4 +84,27 @@ const url = (p: string) => `${base}${p}`;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
   }
+</script>
+
+<style is:global>
+  /* Logo is oversized at the top of the page and eases down to the standard
+     nav height once the visitor scrolls (see header-scrolled toggle). */
+  [data-logo] {
+    height: 4.5rem;
+    transition: height 0.3s ease;
+  }
+  @media (min-width: 640px) {
+    [data-logo] { height: 5.5rem; }
+  }
+  .header-scrolled [data-logo] { height: 3.5rem; }
+  @media (min-width: 640px) {
+    .header-scrolled [data-logo] { height: 4rem; }
+  }
+</style>
+
+<script>
+  const shrinkHeader = document.querySelector("[data-header]");
+  const applyShrink = () => shrinkHeader?.classList.toggle("header-scrolled", window.scrollY > 60);
+  applyShrink();
+  document.addEventListener("scroll", applyShrink, { passive: true });
 </script>
