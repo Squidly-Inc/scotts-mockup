@@ -33,6 +33,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       rel="stylesheet"
     />
     <title>{title}</title>
+    {/* Google Analytics 4 — production only; skipped on github.io previews */}
+    {!(Astro.site?.hostname ?? "").endsWith("github.io") && (
+      <>
+        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-BSB2E8YKBX"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-BSB2E8YKBX');
+        </script>
+      </>
+    )}
   </head>
   <body class="min-h-screen flex flex-col">
     <Header transparent={transparentHeader} />
