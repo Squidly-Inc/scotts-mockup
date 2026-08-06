@@ -1,0 +1,61 @@
+---
+// JSON-LD structured data (schema.org). Only facts stated on the site itself.
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const abs = (p: string) => new URL(`${base}${p}`, Astro.site).href;
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: "Scott's Seafood San Jose",
+      url: abs("/"),
+    },
+    {
+      "@type": "Restaurant",
+      name: "Scott's Seafood San Jose",
+      url: abs("/"),
+      image: abs("/photos/food-seafood-boil.jpg"),
+      telephone: "+14089711700",
+      email: "scotts@scottshospitality.com",
+      servesCuisine: "Seafood",
+      foundingDate: "1985",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "200 S First St, Ste 10",
+        addressLocality: "San Jose",
+        addressRegion: "CA",
+        postalCode: "95113",
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "11:30",
+          closes: "13:30",
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          opens: "15:00",
+          closes: "18:00",
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          opens: "17:00",
+          closes: "21:00",
+        },
+      ],
+      hasMenu: abs("/menu/"),
+      acceptsReservations: "https://www.opentable.com/scotts-seafood-san-jose",
+      sameAs: [
+        "https://www.instagram.com/scottsseafoodsj/",
+        "https://www.facebook.com/ScottsSeafoodSJ",
+      ],
+    },
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />

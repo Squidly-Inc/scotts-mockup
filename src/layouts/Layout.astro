@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Schema from "../components/Schema.astro";
 
 interface Props {
   title?: string;
@@ -16,6 +17,8 @@ const {
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(`${base}/photos/food-seafood-boil.jpg`, Astro.site).href;
 ---
 
 <!doctype html>
@@ -33,6 +36,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       rel="stylesheet"
     />
     <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    <meta property="og:site_name" content="Scott's Seafood San Jose" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <Schema />
     {/* Google Analytics 4 — production only; skipped on github.io previews */}
     {!(Astro.site?.hostname ?? "").endsWith("github.io") && (
       <>

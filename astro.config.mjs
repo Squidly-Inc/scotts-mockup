@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,6 +12,7 @@ export default defineConfig({
     ? 'https://scottsseafoodsj.com'
     : 'https://squidly-inc.github.io',
   base: process.env.DEPLOY_TARGET === 'production' ? '/' : '/scotts-mockup',
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },
